@@ -1,0 +1,393 @@
+import { useEffect, useRef, useState } from 'react';
+import gsap from 'gsap';
+import { useGSAP } from '@gsap/react';
+import LightRays from './components/LightRays.jsx';
+import BlurText from './components/BlurText/BlurText.jsx';
+import SpotlightCard from './components/SpotlightCard.jsx';
+import RotatingText from './components/RotatingText.jsx';
+
+// Shared look for every spotlight card: white card, soft blue light, the site's border colour
+const spot = {
+  theme: 'light',
+  spotlightColor: '#2457D6',
+  intensity: 0.45,
+  style: {
+    '--spotlight-card-surface': '#FFFFFF',
+    '--spotlight-card-border': '#E1E5EE',
+    '--spotlight-card-shadow': 'none'
+  }
+};
+
+const Card = ({ className = '', children, ...rest }) => (
+  <SpotlightCard {...spot} className={`card ${className}`.trim()} {...rest}>
+    {children}
+  </SpotlightCard>
+);
+
+const PlayIcon = () => (
+  <span className="play" aria-hidden="true">
+    <svg width="12" height="14" viewBox="0 0 12 14"><path d="M0 0l12 7-12 7z" fill="#fff" /></svg>
+  </span>
+);
+
+const media = [
+  ['https://www.youtube.com/watch?v=oGT1sZjNrgM', 'Chris Powell interview, part 1', 'Podcast episode'],
+  ['https://www.youtube.com/watch?v=duiCQ1NCDNY', 'Chris Powell interview, part 2', 'Podcast episode'],
+  ['https://www.youtube.com/watch?v=KlJEv28Dh5E', 'Sports interview', 'Interview'],
+  ['https://www.youtube.com/watch?v=6TqCgRl2C2o', 'Highlight package', 'Highlights'],
+  ['https://www.youtube.com/watch?v=h3gAJZu_2rs', 'Rugby highlights', 'Highlights']
+];
+
+const shows = [
+  '6dh1KIxyt9GDbJsHdD7Kds', '3dWKPUsF7KR58q5wI5mjdw', '7MzqDmm5prdm7fXTB0Yelo', '6fw92kOMwJanocqRuoRvlv',
+  '3IlDpXp8k43Epg6J7UIdSI', '03Ztk57csEpuaPFmPETFop', '10Aj5hz58MuL3chVeSwrXI', '2b3CXGDPXGn71wXR7SXMqr'
+];
+
+const skills = [
+  ['Editing', ['Premiere Pro', 'After Effects', 'Multi-camera editing', 'Short-form clips']],
+  ['Audio and radio', ['Audition', 'Mixing and mastering', 'Zetta playout', 'Presenting']],
+  ['Studio and camera', ['Canon EOS R50', 'Studio lighting', 'Floor plans', 'Risk assessments']],
+  ['Design', ['Photoshop', 'Illustrator', 'Canva', 'Thumbnails']]
+];
+
+gsap.registerPlugin(useGSAP);
+
+const navIds = ['about', 'podcast', 'radio', 'projects', 'skills', 'contact'];
+
+function useReducedMotion() {
+  const query = '(prefers-reduced-motion: reduce)';
+  const [reduced, setReduced] = useState(() => window.matchMedia(query).matches);
+  useEffect(() => {
+    const mq = window.matchMedia(query);
+    const on = () => setReduced(mq.matches);
+    mq.addEventListener('change', on);
+    return () => mq.removeEventListener('change', on);
+  }, []);
+  return reduced;
+}
+
+// Highlight the current section in the top bar
+function useCurrentSection() {
+  const [current, setCurrent] = useState(null);
+  useEffect(() => {
+    const update = () => {
+      const y = window.scrollY + 120;
+      let found = null;
+      navIds.forEach(id => {
+        const el = document.getElementById(id);
+        if (el && el.offsetTop <= y) found = id;
+      });
+      if (window.innerHeight + window.scrollY >= document.body.scrollHeight - 4) found = 'contact';
+      setCurrent(found);
+    };
+    window.addEventListener('scroll', update, { passive: true });
+    update();
+    return () => window.removeEventListener('scroll', update);
+  }, []);
+  return current;
+}
+
+export default function App() {
+  const reduced = useReducedMotion();
+  const current = useCurrentSection();
+  const [raysPaused, setRaysPaused] = useState(false);
+  const heroRef = useRef(null);
+
+  // Hero entrance: the buttons rise in one after the other, then the At a glance box settles.
+  // Runs once on load, scoped to the hero, and skipped for anyone who asks for reduced motion.
+  useGSAP(() => {
+    const mm = gsap.matchMedia();
+    mm.add('(prefers-reduced-motion: no-preference)', () => {
+      const hero = heroRef.current;
+      hero.dataset.entering = '';
+      gsap.timeline({ defaults: { ease: 'expo.out' }, delay: 0.45, onComplete: () => delete hero.dataset.entering })
+        .from('.actions .btn', { y: 14, autoAlpha: 0, duration: 0.6, stagger: 0.08, clearProps: 'transform,opacity,visibility' })
+        .from('.glance', { y: 18, scale: 0.98, autoAlpha: 0, duration: 0.9, clearProps: 'transform,opacity,visibility' }, '<0.1')
+        .from('.glance dl > div', { y: 8, autoAlpha: 0, duration: 0.5, stagger: 0.06, clearProps: 'transform,opacity,visibility' }, '<0.2');
+    });
+    return () => {
+      mm.revert();
+      delete heroRef.current?.dataset.entering;
+    };
+  }, { scope: heroRef });
+  const navLink = (id, label, cls) => (
+    <li className={cls}>
+      <a href={`#${id}`} className={current === id ? 'active' : undefined}>{label}</a>
+    </li>
+  );
+
+  return (
+    <>
+      <a className="skip" href="#about">Skip to content</a>
+
+      <header className="bar">
+        <div className="wrap bar-inner">
+          <a className="brand" href="#top" aria-label="Oliver Harris, back to top">
+            <span className="brand-mark">OH</span><span className="brand-name">Oliver Harris</span>
+          </a>
+          <nav aria-label="Main">
+            <ul className="nav">
+              {navLink('about', 'About', 'hide-xs')}
+              {navLink('podcast', 'Podcast')}
+              {navLink('radio', 'Radio')}
+              {navLink('projects', 'Projects')}
+              {navLink('skills', 'Skills', 'hide-sm')}
+              {navLink('contact', 'Contact', 'cta')}
+            </ul>
+          </nav>
+        </div>
+      </header>
+
+      <main id="top">
+        <div className="hero" ref={heroRef}>
+          {!reduced && (
+            <>
+              <div className="hero-rays" aria-hidden="true">
+                <LightRays
+                  raysOrigin="top-center"
+                  raysColor="#4A9BFF"
+                  atmosphere={0}
+                  lightMode
+                  raysSpeed={raysPaused ? 0 : 0.6}
+                  lightSpread={0.7}
+                  rayLength={2.2}
+                  intensity={0.7}
+                  followMouse
+                  mouseInfluence={0.06}
+                  cursorShadow={false}
+                  clickPulse={false}
+                />
+              </div>
+              <button className="rays-toggle" type="button" aria-pressed={raysPaused} onClick={() => setRaysPaused(p => !p)}>
+                {raysPaused ? 'Play background' : 'Pause background'}
+              </button>
+            </>
+          )}
+          <div className="wrap hero-grid">
+            <div>
+              <span className="status">Open to apprenticeships in broadcast and live events</span>
+              <h1 className="sr-only">Oliver Harris</h1>
+              <div aria-hidden="true">
+                <BlurText text="Oliver Harris" className="hero-name" trigger="load" animateBy="words" direction="top" delay={120} />
+              </div>
+              <p className="role">
+                Sports{' '}
+                <RotatingText
+                  texts={['podcast producer', 'radio host and producer', 'video editor', 'podcast and radio producer']}
+                  mainClassName="role-rotate"
+                  rotationInterval={1800}
+                  staggerDuration={0.015}
+                  splitBy="characters"
+                  loop={false}
+                  pauseOnHover
+                />
+              </p>
+              <p className="intro">I produce, edit and present sports content. I run production for the Locker Room Pulse podcast and host and produce shows on Youth Choice radio.</p>
+              <div className="actions">
+                <a className="btn btn-primary" href="#podcast">See my work</a>
+                <a className="btn btn-secondary" href="#contact">Contact me</a>
+              </div>
+            </div>
+            <aside className="glance" aria-labelledby="glance-title">
+              <h2 id="glance-title">At a glance</h2>
+              <dl>
+                <div><dt>Podcast</dt><dd>Head of Podcast Production, Locker Room Pulse</dd></div>
+                <div><dt>Radio</dt><dd>Host and producer, Youth Choice radio</dd></div>
+                <div><dt>Education</dt><dd>Creative Media Production, final year. Distinction in Diploma</dd></div>
+                <div><dt>Award</dt><dd>Employee of the Year 2025, Chessington Garden Centre</dd></div>
+              </dl>
+            </aside>
+          </div>
+        </div>
+
+        <section id="about">
+          <div className="wrap about-grid">
+            <div>
+              <div className="head"><div><h2>About me</h2></div></div>
+              <p>I'm a final-year Creative Media Production student with a Distinction in my Creative Media Production Diploma. Most of my work is in sport: podcast episodes, interviews, highlight packages, radio shows and documentaries.</p>
+              <p>I enjoy the whole production process, from planning a shoot and writing risk assessments to recording, editing, designing the thumbnail and getting the finished piece in front of an audience.</p>
+              <p>I'm now looking for an apprenticeship or entry-level role where I can build a career in broadcast production and live events.</p>
+            </div>
+            <div className="highlights">
+              <div className="card highlight">
+                <span className="icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="9" y="2" width="6" height="12" rx="3" /><path d="M5 10a7 7 0 0 0 14 0M12 17v5" /></svg></span>
+                <div><h3>Podcast production</h3><p>Recording, editing, mixing and publishing a weekly sports podcast</p></div>
+              </div>
+              <div className="card highlight">
+                <span className="icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="2" /><path d="M16.2 7.8a6 6 0 0 1 0 8.4M7.8 16.2a6 6 0 0 1 0-8.4M19.1 4.9a10 10 0 0 1 0 14.2M4.9 19.1a10 10 0 0 1 0-14.2" /></svg></span>
+                <div><h3>Live radio</h3><p>Hosting since November 2025 and producing a daily show</p></div>
+              </div>
+              <div className="card highlight">
+                <span className="icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="6" width="14" height="12" rx="2" /><path d="m16 10 6-3v10l-6-3" /></svg></span>
+                <div><h3>Video and studio</h3><p>Multi-camera shoots, set planning, lighting and editing</p></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="podcast" className="alt">
+          <div className="wrap">
+            <div className="head">
+              <div>
+                <h2>Locker Room Pulse</h2>
+                <p>A weekly student-run sports podcast covering football, basketball, tennis, boxing and more. I'm Head of Podcast Production and a co-host.</p>
+              </div>
+            </div>
+            <div className="lrp-grid">
+              <div className="duties">
+                <Card><h3>Audio production</h3><p>Recording, editing, mixing and mastering each episode.</p></Card>
+                <Card><h3>Video editing</h3><p>Producing and publishing full episodes and extra vlogs on YouTube.</p></Card>
+                <Card><h3>Social media</h3><p>Cutting highlight clips, trailers and promos to grow the audience.</p></Card>
+                <Card><h3>Visual design</h3><p>Designing YouTube thumbnails and cover art to get more clicks.</p></Card>
+              </div>
+              <Card>
+                <h3>Watch and listen</h3>
+                <ul className="media-list">
+                  {media.map(([href, title, kind]) => (
+                    <li key={href}>
+                      <a href={href}>
+                        <PlayIcon />
+                        <span className="m-text"><span className="m-title">{title}</span><span className="m-kind">{kind}</span></span>
+                        <span className="m-where">YouTube</span>
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+                <div className="card-foot">
+                  <a className="btn btn-primary" href="https://www.youtube.com/@LockerRoomPulse">Watch on YouTube</a>
+                  <a className="btn btn-secondary" href="https://www.instagram.com/lockerroompulse/">Follow on Instagram</a>
+                </div>
+              </Card>
+            </div>
+          </div>
+        </section>
+
+        <section id="radio">
+          <div className="wrap">
+            <div className="head">
+              <div>
+                <h2>Youth Choice radio</h2>
+                <p>I've hosted shows on Youth Choice college radio since November 2025, and I produce a daily show.</p>
+              </div>
+            </div>
+            <div className="radio-grid">
+              <div className="card">
+                <span className="tag">How I produce a show</span>
+                <h3>Running order and playout in Zetta</h3>
+                <p>For each show I build the running order in Zetta, the playout system used by professional radio stations.</p>
+                <p className="last">I edit the segues so music fades cleanly in and out of each link, keeping the show tight and on time.</p>
+              </div>
+              <div>
+                <div className="shows">
+                  {shows.map((id, i) => (
+                    <a key={id} className="show" href={`https://open.spotify.com/episode/${id}`}>
+                      <b>Show {i + 1}</b><span>Listen on Spotify</span>
+                    </a>
+                  ))}
+                </div>
+                <p className="small">Each link opens on Spotify, in show order.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="projects" className="alt">
+          <div className="wrap">
+            <div className="head">
+              <div>
+                <h2>College projects</h2>
+                <p>Selected work from my Creative Media Production course.</p>
+              </div>
+              <a className="text-link" href="https://oliverharris6.wordpress.com/">See all coursework</a>
+            </div>
+            <div className="proj-grid">
+              <Card className="proj" role="article">
+                <span className="tag">Final Major Project</span>
+                <h3>Final documentary</h3>
+                <p>A sports audio documentary that I planned, researched, recorded and edited, then published as a podcast episode.</p>
+                <a className="text-link go" href="https://open.spotify.com/episode/70miIYJU1hjJrxphGiWMu8">Listen on Spotify</a>
+              </Card>
+              <Card className="proj" role="article">
+                <span className="tag">Unit 12, Specialist Study</span>
+                <h3>Who tells sports stories now?</h3>
+                <p>An essay on whether the internet has changed who controls sports media, across podcasts, YouTube, TikTok and journalism.</p>
+                <p className="quote">“The internet has democratised making media more than it has democratised reaching people.”</p>
+                <a className="text-link go" href="https://oliverharris6.wordpress.com/unit-12-specialist-study/">Read the essay</a>
+              </Card>
+              <Card className="proj" role="article">
+                <span className="tag">Unit 6</span>
+                <h3>Building a sports interview set</h3>
+                <p>I planned and dressed our own studio set, wrote the risk assessments, chose the kit and edited the multi-camera interviews.</p>
+                <ul>
+                  <li>Two Canon EOS R50s: one wide, one close-up</li>
+                  <li>Pixapro light, LED light bar and two wash lights</li>
+                  <li>Clip-on microphones</li>
+                </ul>
+                <div className="links-row go">
+                  <a className="text-link" href="https://www.youtube.com/watch?v=RvHx7rrYhKI">Final interview</a>
+                  <a className="text-link" href="https://www.youtube.com/watch?v=mO9n21DGQfc">Edit 2</a>
+                  <a className="text-link" href="https://www.youtube.com/watch?v=wLvESyANWHs">Edit 3</a>
+                  <a className="text-link" href="https://www.youtube.com/watch?v=RhMIyLw_MRs">Edit 4</a>
+                  <a className="text-link" href="https://www.youtube.com/watch?v=8jnANhyJQFI">Edit 5</a>
+                </div>
+              </Card>
+              <Card className="proj" role="article">
+                <span className="tag">Unit 3 and 4</span>
+                <h3>Heinz Flavour Tour pitch</h3>
+                <p>Working in a five-person creative agency, we pitched a UK tour bus campaign for Heinz with The Fellas podcast. I made the pitch presentation.</p>
+                <a className="text-link go" href="https://www.canva.com/design/DAHCPrCYfr4/MUXgXCzDCj74b65YnE1EDw/view">View the presentation</a>
+              </Card>
+            </div>
+          </div>
+        </section>
+
+        <section id="skills">
+          <div className="wrap">
+            <div className="head"><div><h2>Skills and kit</h2><p>The software and equipment I use regularly.</p></div></div>
+            <div className="skills-grid">
+              {skills.map(([title, items]) => (
+                <Card key={title}>
+                  <h3>{title}</h3>
+                  <ul className="chips">{items.map(item => <li key={item}>{item}</li>)}</ul>
+                </Card>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section id="experience" className="alt">
+          <div className="wrap">
+            <div className="head"><div><h2>Work experience</h2><p>Experience outside media that I bring to every production.</p></div></div>
+            <div className="exp-grid">
+              <div className="card">
+                <h3>Till Assistant, Chessington Garden Centre</h3>
+                <p className="meta">April 2025 to present, part-time</p>
+                <p>I usually work three shifts a week alongside college, with extra shifts in half terms. I serve customers, build product displays and completed Weber's barbecue product expert training in February 2026.</p>
+                <p className="last">It's taught me to stay calm when it's busy, be reliable and deal with people well, all of which matter on a live production.</p>
+              </div>
+              <div className="award">
+                <span className="tag">Award</span>
+                <b>Employee of the Year 2025</b>
+                <span>Chessington Garden Centre, for always being there for the team, being up for any job, keeping a positive attitude and giving great customer service</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="contact" className="contact">
+          <div className="wrap">
+            <div className="head"><div><h2>Get in touch</h2><p>I'm looking for apprenticeships and entry-level roles in broadcast production and live events.</p></div></div>
+            <div className="contact-grid">
+              <a className="contact-item" href="mailto:harrisoliver073@gmail.com"><small>Email</small><strong>harrisoliver073@gmail.com</strong></a>
+              <a className="contact-item" href="https://oliverharris6.wordpress.com/"><small>Coursework</small><strong>oliverharris6.wordpress.com</strong></a>
+              <a className="contact-item" href="https://www.youtube.com/@LockerRoomPulse"><small>YouTube</small><strong>@LockerRoomPulse</strong></a>
+              <a className="contact-item" href="https://www.instagram.com/lockerroompulse/"><small>Instagram</small><strong>@lockerroompulse</strong></a>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer><div className="wrap">© 2026 Oliver Harris</div></footer>
+    </>
+  );
+}
