@@ -1,8 +1,8 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
-// The site is served from https://devwewewe.github.io/oliver-portfolio/
+// The site is served from the root of https://oliverharrismedia.co.uk/
 export default defineConfig({
-  base: '/oliver-portfolio/',
+  base: '/',
   plugins: [react()]
 });
