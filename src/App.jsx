@@ -138,6 +138,66 @@ export default function App() {
       delete heroRef.current?.dataset.entering;
     };
   }, { scope: heroRef });
+
+  // Section entrances: each section gets one short timeline that plays once as it scrolls into view.
+  // Heading first, then its line of text, then the cards in a quick stagger. Transform and opacity only.
+  const mainRef = useRef(null);
+  useGSAP(() => {
+    const mm = gsap.matchMedia();
+    mm.add('(prefers-reduced-motion: no-preference)', () => {
+      const clear = 'transform,opacity,visibility';
+      const rise = { y: 28, autoAlpha: 0, duration: 0.8, clearProps: clear };
+      const card = { y: 32, autoAlpha: 0, duration: 0.75, stagger: 0.08, clearProps: clear };
+      const small = { y: 14, autoAlpha: 0, duration: 0.5, stagger: 0.04, clearProps: clear };
+
+      // [section id, [selector, tween vars, position on the timeline]...] in page order
+      const plans = [
+        ['about', [['h2', rise], ['.about-grid > div:first-child p', { ...rise, stagger: 0.08 }, '<0.12'], ['.highlight', card, '<0.15']]],
+        ['podcast', [['.head h2', rise], ['.head p', rise, '<0.1'], ['.duties .card', card, '<0.15'], ['.lrp-grid > .card', { ...rise, y: 36 }, '<0.1'], ['.media-list li', small, '<0.25'], ['.card-foot .btn', small, '<0.2']]],
+        ['radio', [['.head h2', rise], ['.head p', rise, '<0.1'], ['.radio-grid > .card', { ...rise, y: 36 }, '<0.15'], ['.show', { ...small, stagger: { each: 0.05, grid: 'auto', from: 'start' } }, '<0.15'], ['.small', small, '>-0.2']]],
+        ['projects', [['.head h2', rise], ['.head p, .head .text-link', { ...rise, stagger: 0.08 }, '<0.1'], ['.proj', card, '<0.15']]],
+        ['skills', [['.head h2', rise], ['.head p', rise, '<0.1'], ['.skills-grid .card', card, '<0.15'], ['.chips li', { ...small, stagger: 0.015 }, '<0.3']]],
+        ['experience', [['.head h2', rise], ['.head p', rise, '<0.1'], ['.exp-grid > .card', { ...rise, y: 36 }, '<0.15'], ['.award', { autoAlpha: 0, y: 24, scale: 0.97, duration: 0.9, clearProps: clear }, '<0.12']]],
+        ['contact', [['.head h2', rise], ['.head p', rise, '<0.1'], ['.contact-item', card, '<0.15']]]
+      ];
+
+      const timelines = plans.map(([id, steps]) => {
+        const section = document.getElementById(id);
+        const tl = gsap.timeline({
+          defaults: { ease: 'power3.out' },
+          scrollTrigger: { trigger: section, start: 'top 82%', once: true },
+          onStart: () => {
+            section.dataset.entering = '';
+            // Safety net: if frames stall part-way, finish the section shortly after it should have
+            tl.safety = setTimeout(() => tl.progress(1), (tl.duration() + 0.8) * 1000);
+          },
+          onComplete: () => {
+            delete section.dataset.entering;
+            clearTimeout(tl.safety);
+          }
+        });
+        steps.forEach(([selector, vars, position]) => {
+          const targets = section.querySelectorAll(selector);
+          if (targets.length) tl.from(targets, vars, position);
+        });
+        return tl;
+      });
+
+      // If animation frames never run (very slow device, crawler, print preview), show everything
+      const startFrame = gsap.ticker.frame;
+      const watchdog = setTimeout(() => {
+        if (gsap.ticker.frame - startFrame < 10) timelines.forEach(tl => tl.progress(1));
+      }, 3000);
+
+      return () => {
+        clearTimeout(watchdog);
+        timelines.forEach(tl => clearTimeout(tl.safety));
+        plans.forEach(([id]) => { delete document.getElementById(id)?.dataset.entering; });
+      };
+    });
+    return () => mm.revert();
+  }, { scope: mainRef });
+
   const navLink = (id, label, cls) => (
     <li className={cls}>
       <a href={`#${id}`} className={current === id ? 'active' : undefined}>{label}</a>
@@ -167,7 +227,7 @@ export default function App() {
         <div className="progress" ref={progressRef} aria-hidden="true" />
       </header>
 
-      <main id="top">
+      <main id="top" ref={mainRef}>
         <div className="hero" ref={heroRef}>
           <div className="hero-rays" aria-hidden="true">
             <Aurora

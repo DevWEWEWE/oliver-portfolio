@@ -218,3 +218,8 @@ footer{background:var(--navy);color:#8F9AB3;font-size:.88rem;padding:28px 0;bord
 
 /* Reading progress line under the top bar (filled by ScrollTrigger in App.jsx) */
 .progress{position:absolute;left:0;right:0;bottom:-1px;height:3px;background:var(--blue);transform:scaleX(0);transform-origin:left center;pointer-events:none}
+
+/* No CSS transitions on moving parts while a section's GSAP entrance plays (they would fight GSAP and stutter) */
+section[data-entering] .btn,section[data-entering] .show,section[data-entering] .contact-item,section[data-entering] .text-link{transition:none}
+/* Promote moving parts to their own layers only while they animate, then release them */
+section[data-entering] .card,section[data-entering] .media-list li,section[data-entering] .show,section[data-entering] .contact-item{will-change:transform,opacity}
