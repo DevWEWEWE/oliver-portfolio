@@ -6,6 +6,7 @@ import Aurora from './components/Aurora.jsx';
 import BlurText from './components/BlurText/BlurText.jsx';
 import SpotlightCard from './components/SpotlightCard.jsx';
 import RotatingText from './components/RotatingText.jsx';
+import { linkedinPosts, LINKEDIN_PROFILE } from './linkedin.js';
 
 // Shared look for every spotlight card: white card, soft blue light, the site's border colour
 const spot = {
@@ -156,6 +157,7 @@ export default function App() {
         ['podcast', [['.head h2', rise], ['.head p', rise, '<0.1'], ['.duties .card', card, '<0.15'], ['.lrp-grid > .card', { ...rise, y: 36 }, '<0.1'], ['.media-list li', small, '<0.25'], ['.card-foot .btn', small, '<0.2']]],
         ['radio', [['.head h2', rise], ['.head p', rise, '<0.1'], ['.radio-grid > .card', { ...rise, y: 36 }, '<0.15'], ['.show', { ...small, stagger: { each: 0.05, grid: 'auto', from: 'start' } }, '<0.15'], ['.small', small, '>-0.2']]],
         ['projects', [['.head h2', rise], ['.head p, .head .text-link', { ...rise, stagger: 0.08 }, '<0.1'], ['.proj', card, '<0.15']]],
+        ['linkedin', [['.head h2', rise], ['.head p, .head .text-link', { ...rise, stagger: 0.08 }, '<0.1'], ['.li-post', card, '<0.15']]],
         ['skills', [['.head h2', rise], ['.head p', rise, '<0.1'], ['.skills-grid .card', card, '<0.15'], ['.chips li', { ...small, stagger: 0.015 }, '<0.3']]],
         ['experience', [['.head h2', rise], ['.head p', rise, '<0.1'], ['.exp-grid > .card', { ...rise, y: 36 }, '<0.15'], ['.award', { autoAlpha: 0, y: 24, scale: 0.97, duration: 0.9, clearProps: clear }, '<0.12']]],
         ['contact', [['.head h2', rise], ['.head p', rise, '<0.1'], ['.contact-item', card, '<0.15']]]
@@ -429,7 +431,35 @@ export default function App() {
           </div>
         </section>
 
-        <section id="skills">
+        <section id="linkedin">
+          <div className="wrap">
+            <div className="head">
+              <div>
+                <h2>On LinkedIn</h2>
+                <p>Posts about producing The Locker Room Pulse and presenting our Heinz project, with the clips and photos.</p>
+              </div>
+              <a className="text-link" href={LINKEDIN_PROFILE}>Follow me on LinkedIn</a>
+            </div>
+            <div className="li-grid">
+              {[0, 1].map(col => (
+                <div className="li-col" key={col}>
+                  {linkedinPosts.filter(p => p.column === col).map(p => (
+                    <div className="li-post" key={p.id} style={{ '--li-h': `${p.desktop}px`, '--li-h-phone': `${p.phone}px` }}>
+                      <iframe
+                        src={`https://www.linkedin.com/embed/feed/update/urn:li:activity:${p.id}?collapsed=1`}
+                        title={`LinkedIn post: ${p.title}`}
+                        loading="lazy"
+                        allowFullScreen
+                      />
+                    </div>
+                  ))}
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section id="skills" className="alt">
           <div className="wrap">
             <div className="head"><div><h2>Skills and kit</h2><p>The software and equipment I use regularly.</p></div></div>
             <div className="skills-grid">
@@ -443,7 +473,7 @@ export default function App() {
           </div>
         </section>
 
-        <section id="experience" className="alt">
+        <section id="experience">
           <div className="wrap">
             <div className="head"><div><h2>Work experience</h2><p>Experience outside media that I bring to every production.</p></div></div>
             <div className="exp-grid">
@@ -469,6 +499,7 @@ export default function App() {
               <a className="contact-item" href="mailto:harrisoliver073@gmail.com"><small>Email</small><strong>harrisoliver073@gmail.com</strong></a>
               <a className="contact-item" href="https://oliverharris6.wordpress.com/"><small>Coursework</small><strong>oliverharris6.wordpress.com</strong></a>
               <a className="contact-item" href="https://www.youtube.com/@LockerRoomPulse"><small>YouTube</small><strong>@LockerRoomPulse</strong></a>
+              <a className="contact-item" href={LINKEDIN_PROFILE}><small>LinkedIn</small><strong>Oliver Harris</strong></a>
               <a className="contact-item" href="https://www.instagram.com/lockerroompulse/"><small>Instagram</small><strong>@lockerroompulse</strong></a>
             </div>
           </div>

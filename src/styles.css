@@ -223,3 +223,18 @@ footer{background:var(--navy);color:#8F9AB3;font-size:.88rem;padding:28px 0;bord
 section[data-entering] .btn,section[data-entering] .show,section[data-entering] .contact-item,section[data-entering] .text-link{transition:none}
 /* Promote moving parts to their own layers only while they animate, then release them */
 section[data-entering] .card,section[data-entering] .media-list li,section[data-entering] .show,section[data-entering] .contact-item{will-change:transform,opacity}
+
+/* On LinkedIn: official post embeds in two columns (own posts on the left), heights per post from linkedin.js */
+.li-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start}
+.li-col{display:grid;gap:20px}
+.li-post{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+.li-post iframe{display:block;width:100%;height:var(--li-h);border:0}
+@media (max-width:960px){
+  .li-grid{grid-template-columns:1fr;max-width:560px}
+}
+@media (max-width:480px){
+  .li-post iframe{height:var(--li-h-phone)}
+}
+section[data-entering] .li-post{will-change:transform,opacity}
+/* five contact cards: let them share the row */
+.contact-grid{grid-template-columns:repeat(auto-fit,minmax(190px,1fr))}
