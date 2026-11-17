@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Aurora from './components/Aurora.jsx';
 import BlurText from './components/BlurText/BlurText.jsx';
 import SpotlightCard from './components/SpotlightCard.jsx';
@@ -50,7 +51,7 @@ const skills = [
   ['Design', ['Photoshop', 'Illustrator', 'Canva', 'Thumbnails']]
 ];
 
-gsap.registerPlugin(useGSAP);
+gsap.registerPlugin(useGSAP, ScrollTrigger);
 // Keep GSAP on real clock time even when frames come slowly, so entrances finish on schedule
 gsap.ticker.lagSmoothing(0);
 
@@ -94,6 +95,21 @@ export default function App() {
   const current = useCurrentSection();
   const [raysPaused, setRaysPaused] = useState(false);
   const heroRef = useRef(null);
+  const progressRef = useRef(null);
+
+  // Reading progress: the blue line under the top bar fills as the page is scrolled.
+  // It follows the scrollbar exactly, so it stays on for reduced-motion users (no lag added for them).
+  useGSAP(() => {
+    gsap.fromTo(progressRef.current, { scaleX: 0 }, {
+      scaleX: 1,
+      ease: 'none',
+      scrollTrigger: { start: 0, end: 'max', scrub: reduced ? true : 0.3 }
+    });
+    // Fonts and the hero animations change the page height after load, so re-measure once they settle
+    document.fonts?.ready.then(() => ScrollTrigger.refresh());
+    const t = setTimeout(() => ScrollTrigger.refresh(), 3000);
+    return () => clearTimeout(t);
+  }, { dependencies: [reduced], revertOnUpdate: true });
   // BlurText runs on animation frames; if they stall on a slow device, show the plain name after 2.5s
   const [nameDone, setNameDone] = useState(false);
   useEffect(() => {
@@ -148,6 +164,7 @@ export default function App() {
             </ul>
           </nav>
         </div>
+        <div className="progress" ref={progressRef} aria-hidden="true" />
       </header>
 
       <main id="top">

@@ -215,3 +215,6 @@ footer{background:var(--navy);color:#8F9AB3;font-size:.88rem;padding:28px 0;bord
 
 /* No CSS transitions on the hero buttons while GSAP plays the entrance */
 .hero[data-entering] .btn{transition:none}
+
+/* Reading progress line under the top bar (filled by ScrollTrigger in App.jsx) */
+.progress{position:absolute;left:0;right:0;bottom:-1px;height:3px;background:var(--blue);transform:scaleX(0);transform-origin:left center;pointer-events:none}
