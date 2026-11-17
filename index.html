@@ -218,9 +218,21 @@
     .hero .intro{animation-delay:.41s}
     .hero .actions{animation-delay:.47s}
     .hero .glance{animation:settle .9s var(--ease-enter) both}
+    /* While GSAP prepares the name, hold it back; if GSAP never loads, the CSS rise above plays instead */
+    .split-wait .hero h1{visibility:hidden;animation:none}
+    .hero h1 .w-mask{padding-bottom:.08em;margin-bottom:-.08em}
   }
   @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 </style>
+<script>
+  // Hold the hero name for GSAP; give up after 1.5s so it is never left hidden
+  if (matchMedia('(prefers-reduced-motion: no-preference)').matches) {
+    document.documentElement.classList.add('split-wait');
+    setTimeout(function(){ document.documentElement.classList.remove('split-wait'); }, 1500);
+  }
+</script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js" integrity="sha384-HOvlOYPIs/zjoIkWUGXkVmXsjr8GuZLV+Q+rcPwmJOVZVpvTSXQChiN4t9Euv9Vc" crossorigin="anonymous"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/SplitText.min.js" integrity="sha384-xb96EMJeax+NLXMC88ZBa1xAeAW+kn+horHh/zFlbMLG2UPWhMJJSlv7fi57hS+Q" crossorigin="anonymous"></script>
 </head>
 <body>
 <a class="skip" href="#about">Skip to content</a>
@@ -471,6 +483,23 @@
     window.addEventListener('scroll', update, {passive:true});
     update();
   })();
+
+  // Hero name: each word rises out of its own mask, once, on load
+  window.addEventListener('DOMContentLoaded', function(){
+    var root = document.documentElement;
+    if (!root.classList.contains('split-wait') || !window.gsap || !window.SplitText) return;
+    gsap.registerPlugin(SplitText);
+    document.fonts.ready.then(function(){
+      if (!root.classList.contains('split-wait')) return; // the fallback already showed it
+      var split = SplitText.create('.hero h1', { type: 'words', wordsClass: 'w', mask: 'words' });
+      gsap.set(split.words, { yPercent: 110 });
+      root.classList.remove('split-wait');
+      gsap.to(split.words, {
+        yPercent: 0, duration: 0.7, stagger: 0.08, ease: 'expo.out',
+        onComplete: function(){ split.revert(); }
+      });
+    });
+  });
 </script>
 </body>
 </html>
