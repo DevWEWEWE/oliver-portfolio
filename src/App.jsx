@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
-import LightRays from './components/LightRays.jsx';
+import Aurora from './components/Aurora.jsx';
 import BlurText from './components/BlurText/BlurText.jsx';
 import SpotlightCard from './components/SpotlightCard.jsx';
 import RotatingText from './components/RotatingText.jsx';
@@ -152,28 +152,23 @@ export default function App() {
 
       <main id="top">
         <div className="hero" ref={heroRef}>
+          <div className="hero-rays" aria-hidden="true">
+            <Aurora
+              colorStops={['#1A6FE0', '#38A3FF', '#1A6FE0']}
+              lightMode
+              amplitude={0.9}
+              blend={0.6}
+              speed={0.5}
+              height={0.5}
+              opacity={0.8}
+              mouseInteraction={false}
+              paused={raysPaused}
+            />
+          </div>
           {!reduced && (
-            <>
-              <div className="hero-rays" aria-hidden="true">
-                <LightRays
-                  raysOrigin="top-center"
-                  raysColor="#4A9BFF"
-                  atmosphere={0}
-                  lightMode
-                  raysSpeed={raysPaused ? 0 : 0.6}
-                  lightSpread={0.7}
-                  rayLength={2.2}
-                  intensity={0.7}
-                  followMouse
-                  mouseInfluence={0.06}
-                  cursorShadow={false}
-                  clickPulse={false}
-                />
-              </div>
-              <button className="rays-toggle" type="button" aria-pressed={raysPaused} onClick={() => setRaysPaused(p => !p)}>
-                {raysPaused ? 'Play background' : 'Pause background'}
-              </button>
-            </>
+            <button className="rays-toggle" type="button" aria-pressed={raysPaused} onClick={() => setRaysPaused(p => !p)}>
+              {raysPaused ? 'Play background' : 'Pause background'}
+            </button>
           )}
           <div className="wrap hero-grid">
             <div>
