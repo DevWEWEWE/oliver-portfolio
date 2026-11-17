@@ -7,6 +7,7 @@ import BlurText from './components/BlurText/BlurText.jsx';
 import SpotlightCard from './components/SpotlightCard.jsx';
 import RotatingText from './components/RotatingText.jsx';
 import { linkedinPosts, LINKEDIN_PROFILE } from './linkedin.js';
+import { instagramReels, INSTAGRAM_PROFILE } from './instagram.js';
 
 // Shared look for every spotlight card: white card, soft blue light, the site's border colour
 const spot = {
@@ -143,6 +144,9 @@ export default function App() {
   // Section entrances: each section gets one short timeline that plays once as it scrolls into view.
   // Heading first, then its line of text, then the cards in a quick stagger. Transform and opacity only.
   const mainRef = useRef(null);
+  const shortsRef = useRef(null);
+  // Arrow buttons move the shorts row about two reels at a time
+  const scrollShorts = dir => shortsRef.current?.scrollBy({ left: dir * 632, behavior: reduced ? 'auto' : 'smooth' });
   useGSAP(() => {
     const mm = gsap.matchMedia();
     mm.add('(prefers-reduced-motion: no-preference)', () => {
@@ -155,6 +159,7 @@ export default function App() {
       const plans = [
         ['about', [['h2', rise], ['.about-grid > div:first-child p', { ...rise, stagger: 0.08 }, '<0.12'], ['.highlight', card, '<0.15']]],
         ['podcast', [['.head h2', rise], ['.head p', rise, '<0.1'], ['.duties .card', card, '<0.15'], ['.lrp-grid > .card', { ...rise, y: 36 }, '<0.1'], ['.media-list li', small, '<0.25'], ['.card-foot .btn', small, '<0.2']]],
+        ['shorts', [['.shorts-head', rise], ['.short', { ...card, stagger: 0.06 }, '<0.15'], ['.shorts > .text-link', small, '<0.3']]],
         ['radio', [['.head h2', rise], ['.head p', rise, '<0.1'], ['.radio-grid > .card', { ...rise, y: 36 }, '<0.15'], ['.show', { ...small, stagger: { each: 0.05, grid: 'auto', from: 'start' } }, '<0.15'], ['.small', small, '>-0.2']]],
         ['projects', [['.head h2', rise], ['.head p, .head .text-link', { ...rise, stagger: 0.08 }, '<0.1'], ['.proj', card, '<0.15']]],
         ['linkedin', [['.head h2', rise], ['.head p, .head .text-link', { ...rise, stagger: 0.08 }, '<0.1'], ['.li-post', card, '<0.15']]],
@@ -350,6 +355,31 @@ export default function App() {
                   <a className="btn btn-secondary" href="https://www.instagram.com/lockerroompulse/">Follow on Instagram</a>
                 </div>
               </Card>
+            </div>
+
+            <div className="shorts" id="shorts">
+              <div className="shorts-head">
+                <div>
+                  <h3>Shorts I've edited</h3>
+                  <p>{instagramReels.length} reels from the Locker Room Pulse Instagram: predictions, guest clips and behind the scenes.</p>
+                </div>
+                <div className="shorts-nav">
+                  <button type="button" className="shorts-btn" aria-label="Previous shorts" onClick={() => scrollShorts(-1)}>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6" /></svg>
+                  </button>
+                  <button type="button" className="shorts-btn" aria-label="Next shorts" onClick={() => scrollShorts(1)}>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6" /></svg>
+                  </button>
+                </div>
+              </div>
+              <div className="shorts-row" ref={shortsRef} role="region" aria-label="Instagram shorts, scroll sideways" tabIndex={0}>
+                {instagramReels.map(r => (
+                  <div className="short" key={r.code}>
+                    <iframe src={`https://www.instagram.com/reel/${r.code}/embed/`} title={`Instagram short: ${r.title}`} loading="lazy" allowFullScreen />
+                  </div>
+                ))}
+              </div>
+              <a className="text-link" href={INSTAGRAM_PROFILE}>See all on Instagram</a>
             </div>
           </div>
         </section>

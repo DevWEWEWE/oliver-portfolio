@@ -242,3 +242,19 @@ section[data-entering] .li-post{will-change:transform,opacity}
 /* Work experience: achievements list from the CV */
 .exp-list{margin:0 0 1em;padding-left:1.1em;color:var(--muted)}
 .exp-list li{margin-bottom:6px}
+
+/* Shorts row: Instagram reel embeds in a sideways scroll under Locker Room Pulse */
+.shorts{margin-top:56px}
+.shorts-head{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;margin-bottom:20px}
+.shorts-head h3{font-size:1.35rem;line-height:1.2;color:var(--navy);margin:0 0 6px;font-weight:800}
+.shorts-head p{color:var(--muted);margin:0}
+.shorts-nav{display:flex;gap:8px;flex:none}
+.shorts-btn{width:44px;height:44px;display:grid;place-items:center;border-radius:50%;border:1.5px solid var(--line);background:var(--paper);color:var(--navy);cursor:pointer;transition:border-color .12s var(--ease),background-color .12s var(--ease)}
+.shorts-btn:hover{border-color:var(--navy)}
+.shorts-btn:focus-visible{outline:3px solid var(--blue);outline-offset:3px}
+.shorts-row{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-left:0;padding:4px 2px 16px;margin-bottom:8px;scrollbar-width:thin;overscroll-behavior-x:contain}
+.shorts-row:focus-visible{outline:3px solid var(--blue);outline-offset:4px;border-radius:12px}
+.short{flex:0 0 300px;scroll-snap-align:start;background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+.short iframe{display:block;width:100%;height:583px;border:0}
+section[data-entering] .short,.shorts[data-entering] .short{will-change:transform,opacity}
+@media (max-width:720px){.shorts-nav{display:none}}
