@@ -238,3 +238,7 @@ section[data-entering] .card,section[data-entering] .media-list li,section[data-
 section[data-entering] .li-post{will-change:transform,opacity}
 /* five contact cards: let them share the row */
 .contact-grid{grid-template-columns:repeat(auto-fit,minmax(190px,1fr))}
+
+/* Work experience: achievements list from the CV */
+.exp-list{margin:0 0 1em;padding-left:1.1em;color:var(--muted)}
+.exp-list li{margin-bottom:6px}

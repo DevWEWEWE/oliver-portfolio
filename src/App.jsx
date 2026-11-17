@@ -281,7 +281,7 @@ export default function App() {
             <aside className="glance" aria-labelledby="glance-title">
               <h2 id="glance-title">At a glance</h2>
               <dl>
-                <div><dt>Podcast</dt><dd>Head of Podcast Production, Locker Room Pulse</dd></div>
+                <div><dt>Podcast</dt><dd>Head Podcast Producer, Locker Room Pulse</dd></div>
                 <div><dt>Radio</dt><dd>Host and producer, Youth Choice radio</dd></div>
                 <div><dt>Education</dt><dd>Creative Media Production, final year. Distinction in Diploma</dd></div>
                 <div><dt>Award</dt><dd>Employee of the Year 2025, Chessington Garden Centre</dd></div>
@@ -320,7 +320,7 @@ export default function App() {
             <div className="head">
               <div>
                 <h2>Locker Room Pulse</h2>
-                <p>A weekly student-run sports podcast covering football, basketball, tennis, boxing and more. I'm Head of Podcast Production and a co-host.</p>
+                <p>A weekly student-run sports podcast covering football, basketball, tennis, boxing and more. I've been Head Podcast Producer and a co-host since November 2025, and I've produced over 20 episodes, one every week.</p>
               </div>
             </div>
             <div className="lrp-grid">
@@ -329,6 +329,8 @@ export default function App() {
                 <Card><h3>Video editing</h3><p>Producing and publishing full episodes and extra vlogs on YouTube.</p></Card>
                 <Card><h3>Social media</h3><p>Cutting highlight clips, trailers and promos to grow the audience.</p></Card>
                 <Card><h3>Visual design</h3><p>Designing YouTube thumbnails and cover art to get more clicks.</p></Card>
+                <Card><h3>Guest bookings</h3><p>Tracking guests, topics and episode outlines in a spreadsheet, and rearranging recordings when guests cancel so an episode still goes out every week.</p></Card>
+                <Card><h3>File archive</h3><p>Keeping a secure archive of raw and finished files for every episode, so the team can find any file when needed.</p></Card>
               </div>
               <Card>
                 <h3>Watch and listen</h3>
@@ -478,9 +480,15 @@ export default function App() {
             <div className="head"><div><h2>Work experience</h2><p>Experience outside media that I bring to every production.</p></div></div>
             <div className="exp-grid">
               <div className="card">
-                <h3>Till Assistant, Chessington Garden Centre</h3>
-                <p className="meta">April 2025 to present, part-time</p>
-                <p>I usually work three shifts a week alongside college, with extra shifts in half terms. I serve customers, build product displays and completed Weber's barbecue product expert training in February 2026.</p>
+                <h3>Retail Assistant, Chessington Garden Centre</h3>
+                <p className="meta">April 2025 to present, part-time alongside college</p>
+                <p>I work three shifts a week, plus cover in half terms. I serve customers, keep the shelves stocked and build product displays, and in February 2026 I completed Weber's barbecue product expert training.</p>
+                <ul className="exp-list">
+                  <li>Built a 10-product Remembrance Day display two weeks before 11 November. About 10 of the 30 units sold in the first week.</li>
+                  <li>Built or reset around 15 outdoor furniture and Christmas displays, and finished the Christmas displays by a fixed deadline for the October opening event.</li>
+                  <li>During Christmas 2025, reviewed sales and placement across the store, spotted Elf on the Shelf as a repeat seller and recorded where it sold best.</li>
+                  <li>Process around 50 cash and card transactions a shift and answer customers' product questions.</li>
+                </ul>
                 <p className="last">It's taught me to stay calm when it's busy, be reliable and deal with people well, all of which matter on a live production.</p>
               </div>
               <div className="award">
