@@ -51,6 +51,8 @@ const skills = [
 ];
 
 gsap.registerPlugin(useGSAP);
+// Keep GSAP on real clock time even when frames come slowly, so entrances finish on schedule
+gsap.ticker.lagSmoothing(0);
 
 const navIds = ['about', 'podcast', 'radio', 'projects', 'skills', 'contact'];
 
@@ -92,6 +94,12 @@ export default function App() {
   const current = useCurrentSection();
   const [raysPaused, setRaysPaused] = useState(false);
   const heroRef = useRef(null);
+  // BlurText runs on animation frames; if they stall on a slow device, show the plain name after 2.5s
+  const [nameDone, setNameDone] = useState(false);
+  useEffect(() => {
+    const t = setTimeout(() => setNameDone(true), 2500);
+    return () => clearTimeout(t);
+  }, []);
 
   // Hero entrance: the buttons rise in one after the other, then the At a glance box settles.
   // Runs once on load, scoped to the hero, and skipped for anyone who asks for reduced motion.
@@ -100,10 +108,14 @@ export default function App() {
     mm.add('(prefers-reduced-motion: no-preference)', () => {
       const hero = heroRef.current;
       hero.dataset.entering = '';
-      gsap.timeline({ defaults: { ease: 'expo.out' }, delay: 0.45, onComplete: () => delete hero.dataset.entering })
+      const tl = gsap.timeline({ defaults: { ease: 'expo.out' }, delay: 0.45, onComplete: () => delete hero.dataset.entering })
         .from('.actions .btn', { y: 14, autoAlpha: 0, duration: 0.6, stagger: 0.08, clearProps: 'transform,opacity,visibility' })
         .from('.glance', { y: 18, scale: 0.98, autoAlpha: 0, duration: 0.9, clearProps: 'transform,opacity,visibility' }, '<0.1')
         .from('.glance dl > div', { y: 8, autoAlpha: 0, duration: 0.5, stagger: 0.06, clearProps: 'transform,opacity,visibility' }, '<0.2');
+      // Safety net: on a slow or throttled device frames can stall, so never leave the hero hidden.
+      // After 2.5s (about when the entrance ends anyway) jump straight to the finished state.
+      const safety = setTimeout(() => tl.progress(1), 2500);
+      return () => clearTimeout(safety);
     });
     return () => {
       mm.revert();
@@ -168,7 +180,11 @@ export default function App() {
               <span className="status">Open to apprenticeships in broadcast and live events</span>
               <h1 className="sr-only">Oliver Harris</h1>
               <div aria-hidden="true">
-                <BlurText text="Oliver Harris" className="hero-name" trigger="load" animateBy="words" direction="top" delay={120} />
+                {nameDone || reduced ? (
+                  <p className="hero-name">Oliver Harris</p>
+                ) : (
+                  <BlurText text="Oliver Harris" className="hero-name" trigger="load" animateBy="words" direction="top" delay={120} onAnimationComplete={() => setNameDone(true)} />
+                )}
               </div>
               <p className="role">
                 Sports{' '}
