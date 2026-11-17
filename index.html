@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Oliver Harris – Sports Production Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#14213D;
+    --navy-2:#1F2F52;
+    --blue:#2457D6;
+    --blue-soft:#E9EFFC;
+    --paper:#FFFFFF;
+    --mist:#F4F6FA;
+    --text:#1A2333;
+    --muted:#5A6478;
+    --line:#E1E5EE;
+    --font:"Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --radius:14px;
+    --bar:68px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth;scroll-padding-top:calc(var(--bar) + 16px)}
+  body{margin:0;background:var(--paper);color:var(--text);font-family:var(--font);font-size:1rem;line-height:1.65;-webkit-font-smoothing:antialiased}
+  a{color:inherit}
+  a:focus-visible,button:focus-visible{outline:3px solid var(--blue);outline-offset:3px;border-radius:6px}
+  p{margin:0 0 1em;max-width:68ch}
+  .wrap{max-width:1140px;margin:0 auto;padding:0 28px}
+
+  /* ---------- Top bar ---------- */
+  .bar{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.96);backdrop-filter:saturate(1.4) blur(8px);border-bottom:1px solid var(--line);box-shadow:0 1px 0 rgba(20,33,61,.03)}
+  .bar-inner{height:var(--bar);display:flex;align-items:center;justify-content:space-between;gap:20px}
+  .brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-weight:800;font-size:1.08rem;color:var(--navy);white-space:nowrap}
+  .brand-mark{width:34px;height:34px;border-radius:9px;background:var(--navy);color:#fff;display:grid;place-items:center;font-size:.85rem;font-weight:800;letter-spacing:.02em}
+  .nav{display:flex;align-items:center;gap:4px;list-style:none;margin:0;padding:0}
+  .nav a{display:block;text-decoration:none;font-weight:600;font-size:.95rem;color:var(--muted);padding:8px 14px;border-radius:8px}
+  .nav a:hover{color:var(--navy);background:var(--mist)}
+  .nav a.active{color:var(--blue);background:var(--blue-soft)}
+  .nav .cta a{background:var(--blue);color:#fff;margin-left:8px}
+  .nav .cta a:hover{background:#1C47B3;color:#fff}
+
+  /* ---------- Hero ---------- */
+  .hero{background:linear-gradient(180deg,var(--mist) 0%,var(--paper) 100%);border-bottom:1px solid var(--line)}
+  .hero-grid{display:grid;grid-template-columns:1.35fr 1fr;gap:56px;align-items:center;padding:84px 0 88px}
+  .status{display:inline-flex;align-items:center;gap:8px;font-size:.9rem;font-weight:600;color:var(--navy);background:var(--paper);border:1px solid var(--line);padding:6px 14px;border-radius:999px;margin-bottom:22px}
+  .status::before{content:"";width:8px;height:8px;border-radius:50%;background:#1FA463;box-shadow:0 0 0 4px rgba(31,164,99,.15)}
+  h1{font-size:clamp(2.6rem,6vw,4.2rem);line-height:1.04;letter-spacing:-.03em;font-weight:800;color:var(--navy);margin:0 0 18px}
+  .role{font-size:clamp(1.15rem,2vw,1.4rem);font-weight:600;color:var(--blue);margin:0 0 18px}
+  .intro{font-size:1.12rem;color:var(--muted);max-width:56ch}
+  .actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}
+  .btn{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;font-weight:700;font-size:.98rem;padding:13px 22px;border-radius:10px;border:1.5px solid transparent}
+  .btn-primary{background:var(--blue);color:#fff}
+  .btn-primary:hover{background:#1C47B3}
+  .btn-secondary{background:var(--paper);color:var(--navy);border-color:var(--line)}
+  .btn-secondary:hover{border-color:var(--navy)}
+
+  .glance{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:8px 26px;box-shadow:0 18px 40px -24px rgba(20,33,61,.25)}
+  .glance h2{font-size:1rem;margin:18px 0 6px;color:var(--navy)}
+  .glance dl{margin:0}
+  .glance div{display:grid;grid-template-columns:96px 1fr;gap:12px;padding:14px 0;border-top:1px solid var(--line)}
+  .glance div:first-child{border-top:0}
+  .glance dt{font-size:.85rem;font-weight:600;color:var(--muted)}
+  .glance dd{margin:0;font-weight:600;color:var(--text);line-height:1.45}
+
+  /* ---------- Sections ---------- */
+  section{padding:88px 0}
+  section.alt{background:var(--mist);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+  .head h2{font-size:clamp(1.9rem,3.6vw,2.5rem);line-height:1.1;letter-spacing:-.02em;font-weight:800;color:var(--navy);margin:0 0 10px}
+  .head p{color:var(--muted);font-size:1.05rem;margin:0;max-width:60ch}
+  .text-link{font-weight:700;color:var(--blue);text-decoration:none;white-space:nowrap}
+  .text-link:hover{text-decoration:underline;text-underline-offset:4px}
+
+  .card{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:28px}
+  .card h3{font-size:1.2rem;line-height:1.3;color:var(--navy);margin:0 0 8px;font-weight:700}
+  .card p{color:var(--muted)}
+  .tag{display:inline-block;align-self:flex-start;font-size:.8rem;font-weight:700;color:var(--blue);background:var(--blue-soft);padding:4px 10px;border-radius:999px;margin-bottom:14px}
+
+  /* About */
+  .about-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:48px;align-items:start}
+  .about-grid p{font-size:1.06rem}
+  .highlights{display:grid;gap:14px}
+  .highlight{display:flex;gap:16px;align-items:flex-start;padding:20px 22px}
+  .highlight .icon{flex:none;width:42px;height:42px;border-radius:10px;background:var(--blue-soft);color:var(--blue);display:grid;place-items:center}
+  .highlight h3{font-size:1.02rem;margin:0 0 2px}
+  .highlight p{margin:0;font-size:.95rem}
+
+  /* Locker Room Pulse */
+  .lrp-grid{display:grid;grid-template-columns:1fr 1.1fr;gap:28px;align-items:start}
+  .duties{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .duties .card{padding:22px}
+  .duties h3{font-size:1.02rem}
+  .duties p{margin:0;font-size:.95rem}
+  .media-list{list-style:none;margin:0;padding:0}
+  .media-list li+li{border-top:1px solid var(--line)}
+  .media-list a{display:flex;align-items:center;gap:16px;padding:16px 4px;text-decoration:none}
+  .media-list a:hover .m-title{color:var(--blue)}
+  .play{flex:none;width:40px;height:40px;border-radius:50%;background:var(--navy);display:grid;place-items:center}
+  .play svg{margin-left:2px}
+  .m-text{flex:1;min-width:0}
+  .m-title{display:block;font-weight:700;color:var(--navy)}
+  .m-kind{display:block;font-size:.88rem;color:var(--muted)}
+  .m-where{font-size:.85rem;font-weight:600;color:var(--muted)}
+  .card-foot{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px;padding-top:20px;border-top:1px solid var(--line)}
+
+  /* Radio */
+  .radio-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:28px;align-items:start}
+  .shows{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+  .show{display:flex;flex-direction:column;gap:2px;text-decoration:none;background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:16px}
+  .show:hover{border-color:var(--blue);box-shadow:0 0 0 3px var(--blue-soft)}
+  .show b{font-size:1.5rem;font-weight:800;color:var(--navy);line-height:1.1}
+  .show span{font-size:.85rem;color:var(--muted)}
+  .small{font-size:.9rem;color:var(--muted);margin-top:14px}
+
+  /* Projects */
+  .proj-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+  .proj{display:flex;flex-direction:column}
+  .proj .go{margin-top:auto;padding-top:8px}
+  .proj ul{margin:0 0 1em;padding-left:1.1em;color:var(--muted)}
+  .proj li{margin-bottom:4px}
+  .quote{border-left:4px solid var(--blue);padding:4px 0 4px 16px;margin:4px 0 18px;font-weight:600;color:var(--navy);font-size:1.08rem;line-height:1.45}
+  .links-row{display:flex;flex-wrap:wrap;gap:8px 16px}
+
+  /* Skills */
+  .skills-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+  .skills-grid h3{font-size:1.05rem;margin-bottom:14px}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;list-style:none;margin:0;padding:0}
+  .chips li{font-size:.88rem;font-weight:600;color:var(--navy);background:var(--mist);border:1px solid var(--line);border-radius:999px;padding:5px 12px}
+
+  /* Experience */
+  .exp-grid{display:grid;grid-template-columns:1.5fr 1fr;gap:20px;align-items:stretch}
+  .award{background:var(--navy);color:#fff;border-radius:var(--radius);padding:30px;display:flex;flex-direction:column;justify-content:center}
+  .award .tag{background:rgba(255,255,255,.12);color:#fff;align-self:flex-start}
+  .award b{font-size:1.7rem;line-height:1.15;font-weight:800;letter-spacing:-.01em}
+  .award span{color:#C5CEE0;margin-top:8px}
+  .meta{font-size:.92rem;font-weight:600;color:var(--muted);margin-bottom:14px}
+
+  /* Contact */
+  .contact{background:var(--navy);color:#fff}
+  .contact .head h2{color:#fff}
+  .contact .head p{color:#C5CEE0}
+  .contact-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+  .contact-item{display:block;text-decoration:none;background:var(--navy-2);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:20px}
+  a.contact-item:hover{border-color:rgba(255,255,255,.35)}
+  .contact-item small{display:block;color:#AFB9CF;font-size:.85rem;font-weight:600;margin-bottom:4px}
+  .contact-item strong{display:block;font-weight:700;word-break:break-word}
+  footer{background:var(--navy);color:#8F9AB3;font-size:.88rem;padding:28px 0;border-top:1px solid rgba(255,255,255,.08)}
+
+  @media (max-width:960px){
+    .hero-grid,.about-grid,.lrp-grid,.radio-grid,.exp-grid{grid-template-columns:1fr}
+    .skills-grid,.contact-grid{grid-template-columns:1fr 1fr}
+    .hero .hero-grid{padding-top:56px;padding-bottom:60px;gap:36px}
+  }
+  @media (max-width:720px){
+    :root{--bar:60px}
+    .bar-inner{gap:10px}
+    .brand-name{display:none}
+    .nav{overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;gap:2px}
+    .nav::-webkit-scrollbar{display:none}
+    .nav a{padding:7px 8px;font-size:.86rem;white-space:nowrap}
+    .brand-mark{width:30px;height:30px;font-size:.78rem}
+    .nav .cta a{margin-left:4px}
+    .nav .hide-sm{display:none}
+    .wrap{padding:0 20px}
+    .bar .wrap{padding:0 14px}
+    section{padding:64px 0}
+    .proj-grid,.duties{grid-template-columns:1fr}
+    .shows{grid-template-columns:repeat(2,1fr)}
+    .skills-grid,.contact-grid{grid-template-columns:1fr}
+  }
+  @media (max-width:420px){.nav .hide-xs{display:none}}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="wrap bar-inner">
+    <a class="brand" href="#top" aria-label="Oliver Harris, back to top"><span class="brand-mark">OH</span><span class="brand-name">Oliver Harris</span></a>
+    <nav aria-label="Main">
+      <ul class="nav">
+        <li class="hide-xs"><a href="#about">About</a></li>
+        <li><a href="#podcast">Podcast</a></li>
+        <li><a href="#radio">Radio</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li class="hide-sm"><a href="#skills">Skills</a></li>
+        <li class="cta"><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <div class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <span class="status">Open to apprenticeships in broadcast and live events</span>
+        <h1>Oliver Harris</h1>
+        <p class="role">Sports podcast and radio producer</p>
+        <p class="intro">I produce, edit and present sports content. I run production for the Locker Room Pulse podcast and host and produce shows on Youth Choice radio.</p>
+        <div class="actions">
+          <a class="btn btn-primary" href="#podcast">View my work</a>
+          <a class="btn btn-secondary" href="#contact">Contact me</a>
+        </div>
+      </div>
+      <aside class="glance" aria-labelledby="glance-title">
+        <h2 id="glance-title">At a glance</h2>
+        <dl>
+          <div><dt>Podcast</dt><dd>Head of Podcast Production, Locker Room Pulse</dd></div>
+          <div><dt>Radio</dt><dd>Host and producer, Youth Choice radio</dd></div>
+          <div><dt>Education</dt><dd>Creative Media Production, final year. Distinction in Diploma</dd></div>
+          <div><dt>Award</dt><dd>Employee of the Year 2025, Chessington Garden Centre</dd></div>
+        </dl>
+      </aside>
+    </div>
+  </div>
+
+  <section id="about">
+    <div class="wrap about-grid">
+      <div>
+        <div class="head"><div><h2>About me</h2></div></div>
+        <p>I'm a final-year Creative Media Production student with a Distinction in my Creative Media Production Diploma. Most of my work is in sport: podcast episodes, interviews, highlight packages, radio shows and documentaries.</p>
+        <p>I enjoy the whole production process, from planning a shoot and writing risk assessments to recording, editing, designing the thumbnail and getting the finished piece in front of an audience.</p>
+        <p>I'm now looking for an apprenticeship or entry-level role where I can build a career in broadcast production and live events.</p>
+      </div>
+      <div class="highlights">
+        <div class="card highlight">
+          <span class="icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0M12 17v5"/></svg></span>
+          <div><h3>Podcast production</h3><p>Recording, editing, mixing and publishing a weekly sports podcast</p></div>
+        </div>
+        <div class="card highlight">
+          <span class="icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="2"/><path d="M16.2 7.8a6 6 0 0 1 0 8.4M7.8 16.2a6 6 0 0 1 0-8.4M19.1 4.9a10 10 0 0 1 0 14.2M4.9 19.1a10 10 0 0 1 0-14.2"/></svg></span>
+          <div><h3>Live radio</h3><p>Hosting since November 2025 and producing a daily show</p></div>
+        </div>
+        <div class="card highlight">
+          <span class="icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="14" height="12" rx="2"/><path d="m16 10 6-3v10l-6-3"/></svg></span>
+          <div><h3>Video and studio</h3><p>Multi-camera shoots, set planning, lighting and editing</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="podcast" class="alt">
+    <div class="wrap">
+      <div class="head">
+        <div>
+          <h2>Locker Room Pulse</h2>
+          <p>A weekly student-run sports podcast covering football, basketball, tennis, boxing and more. I'm Head of Podcast Production and a co-host.</p>
+        </div>
+        <a class="text-link" href="https://www.youtube.com/@LockerRoomPulse">Visit the YouTube channel</a>
+      </div>
+      <div class="lrp-grid">
+        <div class="duties">
+          <div class="card"><h3>Audio production</h3><p>Recording, editing, mixing and mastering each episode.</p></div>
+          <div class="card"><h3>Video editing</h3><p>Producing and publishing full episodes and extra vlogs on YouTube.</p></div>
+          <div class="card"><h3>Social media</h3><p>Cutting highlight clips, trailers and promos to grow the audience.</p></div>
+          <div class="card"><h3>Visual design</h3><p>Designing YouTube thumbnails and cover art to get more clicks.</p></div>
+        </div>
+        <div class="card">
+          <h3>Watch and listen</h3>
+          <ul class="media-list">
+            <li><a href="https://www.youtube.com/watch?v=oGT1sZjNrgM"><span class="play" aria-hidden="true"><svg width="12" height="14" viewBox="0 0 12 14"><path d="M0 0l12 7-12 7z" fill="#fff"/></svg></span><span class="m-text"><span class="m-title">Chris Powell interview, part 1</span><span class="m-kind">Podcast episode</span></span><span class="m-where">YouTube</span></a></li>
+            <li><a href="https://www.youtube.com/watch?v=duiCQ1NCDNY"><span class="play" aria-hidden="true"><svg width="12" height="14" viewBox="0 0 12 14"><path d="M0 0l12 7-12 7z" fill="#fff"/></svg></span><span class="m-text"><span class="m-title">Chris Powell interview, part 2</span><span class="m-kind">Podcast episode</span></span><span class="m-where">YouTube</span></a></li>
+            <li><a href="https://www.youtube.com/watch?v=KlJEv28Dh5E"><span class="play" aria-hidden="true"><svg width="12" height="14" viewBox="0 0 12 14"><path d="M0 0l12 7-12 7z" fill="#fff"/></svg></span><span class="m-text"><span class="m-title">Sports interview</span><span class="m-kind">Interview</span></span><span class="m-where">YouTube</span></a></li>
+            <li><a href="https://www.youtube.com/watch?v=6TqCgRl2C2o"><span class="play" aria-hidden="true"><svg width="12" height="14" viewBox="0 0 12 14"><path d="M0 0l12 7-12 7z" fill="#fff"/></svg></span><span class="m-text"><span class="m-title">Highlight package</span><span class="m-kind">Highlights</span></span><span class="m-where">YouTube</span></a></li>
+            <li><a href="https://www.youtube.com/watch?v=h3gAJZu_2rs"><span class="play" aria-hidden="true"><svg width="12" height="14" viewBox="0 0 12 14"><path d="M0 0l12 7-12 7z" fill="#fff"/></svg></span><span class="m-text"><span class="m-title">Rugby highlights</span><span class="m-kind">Highlights</span></span><span class="m-where">YouTube</span></a></li>
+          </ul>
+          <div class="card-foot">
+            <a class="btn btn-primary" href="https://www.youtube.com/@LockerRoomPulse">YouTube</a>
+            <a class="btn btn-secondary" href="https://www.instagram.com/lockerroompulse/">Instagram</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="radio">
+    <div class="wrap">
+      <div class="head">
+        <div>
+          <h2>Youth Choice radio</h2>
+          <p>I've hosted shows on Youth Choice college radio since November 2025, and I produce a daily show.</p>
+        </div>
+      </div>
+      <div class="radio-grid">
+        <div class="card">
+          <span class="tag">How I produce a show</span>
+          <h3>Running order and playout in Zetta</h3>
+          <p>For each show I build the running order in Zetta, the playout system used by professional radio stations.</p>
+          <p style="margin:0">I edit the segues so music fades cleanly in and out of each link, keeping the show tight and on time.</p>
+        </div>
+        <div>
+          <div class="shows">
+            <a class="show" href="https://open.spotify.com/episode/6dh1KIxyt9GDbJsHdD7Kds"><b>01</b><span>Show link</span></a>
+            <a class="show" href="https://open.spotify.com/episode/3dWKPUsF7KR58q5wI5mjdw"><b>02</b><span>Show link</span></a>
+            <a class="show" href="https://open.spotify.com/episode/7MzqDmm5prdm7fXTB0Yelo"><b>03</b><span>Show link</span></a>
+            <a class="show" href="https://open.spotify.com/episode/6fw92kOMwJanocqRuoRvlv"><b>04</b><span>Show link</span></a>
+            <a class="show" href="https://open.spotify.com/episode/3IlDpXp8k43Epg6J7UIdSI"><b>05</b><span>Show link</span></a>
+            <a class="show" href="https://open.spotify.com/episode/03Ztk57csEpuaPFmPETFop"><b>06</b><span>Show link</span></a>
+            <a class="show" href="https://open.spotify.com/episode/10Aj5hz58MuL3chVeSwrXI"><b>07</b><span>Show link</span></a>
+            <a class="show" href="https://open.spotify.com/episode/2b3CXGDPXGn71wXR7SXMqr"><b>08</b><span>Show link</span></a>
+          </div>
+          <p class="small">Each link opens on Spotify, in show order.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects" class="alt">
+    <div class="wrap">
+      <div class="head">
+        <div>
+          <h2>College projects</h2>
+          <p>Selected work from my Creative Media Production course.</p>
+        </div>
+        <a class="text-link" href="https://oliverharris6.wordpress.com/">See all coursework</a>
+      </div>
+      <div class="proj-grid">
+        <article class="card proj">
+          <span class="tag">Final Major Project</span>
+          <h3>Final documentary</h3>
+          <p>A sports audio documentary that I planned, researched, recorded and edited, then published as a podcast episode.</p>
+          <a class="text-link go" href="https://open.spotify.com/episode/70miIYJU1hjJrxphGiWMu8">Listen on Spotify</a>
+        </article>
+        <article class="card proj">
+          <span class="tag">Unit 12, Specialist Study</span>
+          <h3>Who tells sports stories now?</h3>
+          <p>An essay on whether the internet has changed who controls sports media, across podcasts, YouTube, TikTok and journalism.</p>
+          <p class="quote">“The internet has democratised making media more than it has democratised reaching people.”</p>
+          <a class="text-link go" href="https://oliverharris6.wordpress.com/unit-12-specialist-study/">Read the essay</a>
+        </article>
+        <article class="card proj">
+          <span class="tag">Unit 6</span>
+          <h3>Building a sports interview set</h3>
+          <p>I planned and dressed our own studio set, wrote the risk assessments, chose the kit and edited the multi-camera interviews.</p>
+          <ul>
+            <li>Two Canon EOS R50s: one wide, one close-up</li>
+            <li>Pixapro light, LED light bar and two wash lights</li>
+            <li>Clip-on microphones</li>
+          </ul>
+          <div class="links-row go">
+            <a class="text-link" href="https://www.youtube.com/watch?v=RvHx7rrYhKI">Final interview</a>
+            <a class="text-link" href="https://www.youtube.com/watch?v=mO9n21DGQfc">Edit 2</a>
+            <a class="text-link" href="https://www.youtube.com/watch?v=wLvESyANWHs">Edit 3</a>
+            <a class="text-link" href="https://www.youtube.com/watch?v=RhMIyLw_MRs">Edit 4</a>
+            <a class="text-link" href="https://www.youtube.com/watch?v=8jnANhyJQFI">Edit 5</a>
+          </div>
+        </article>
+        <article class="card proj">
+          <span class="tag">Unit 3 and 4</span>
+          <h3>Heinz Flavour Tour pitch</h3>
+          <p>Working in a five-person creative agency, we pitched a UK tour bus campaign for Heinz with The Fellas podcast. I made the pitch presentation.</p>
+          <a class="text-link go" href="https://www.canva.com/design/DAHCPrCYfr4/MUXgXCzDCj74b65YnE1EDw/view">View the presentation</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="wrap">
+      <div class="head"><div><h2>Skills and kit</h2><p>The software and equipment I use regularly.</p></div></div>
+      <div class="skills-grid">
+        <div class="card"><h3>Editing</h3><ul class="chips"><li>Premiere Pro</li><li>After Effects</li><li>Multi-camera editing</li><li>Short-form clips</li></ul></div>
+        <div class="card"><h3>Audio and radio</h3><ul class="chips"><li>Audition</li><li>Mixing and mastering</li><li>Zetta playout</li><li>Presenting</li></ul></div>
+        <div class="card"><h3>Studio and camera</h3><ul class="chips"><li>Canon EOS R50</li><li>Studio lighting</li><li>Floor plans</li><li>Risk assessments</li></ul></div>
+        <div class="card"><h3>Design</h3><ul class="chips"><li>Photoshop</li><li>Illustrator</li><li>Canva</li><li>Thumbnails</li></ul></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="experience" class="alt">
+    <div class="wrap">
+      <div class="head"><div><h2>Work experience</h2><p>Experience outside media that I bring to every production.</p></div></div>
+      <div class="exp-grid">
+        <div class="card">
+          <h3>Till Assistant, Chessington Garden Centre</h3>
+          <p class="meta">April 2025 to present, part-time</p>
+          <p>I usually work three shifts a week alongside college, with extra shifts in half terms. I serve customers, build product displays and completed Weber's barbecue product expert training in February 2026.</p>
+          <p style="margin:0">It's taught me to stay calm when it's busy, be reliable and deal with people well, all of which matter on a live production.</p>
+        </div>
+        <div class="award">
+          <span class="tag">Award</span>
+          <b>Employee of the Year 2025</b>
+          <span>Chessington Garden Centre, for reliability</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="contact">
+    <div class="wrap">
+      <div class="head"><div><h2>Get in touch</h2><p>I'm looking for apprenticeships and entry-level roles in broadcast production and live events.</p></div></div>
+      <div class="contact-grid">
+        <a class="contact-item" href="mailto:harrisoliver073@gmail.com"><small>Email</small><strong>harrisoliver073@gmail.com</strong></a>
+        <a class="contact-item" href="https://oliverharris6.wordpress.com/"><small>Coursework</small><strong>oliverharris6.wordpress.com</strong></a>
+        <a class="contact-item" href="https://www.youtube.com/@LockerRoomPulse"><small>YouTube</small><strong>@LockerRoomPulse</strong></a>
+        <a class="contact-item" href="https://www.instagram.com/lockerroompulse/"><small>Instagram</small><strong>@lockerroompulse</strong></a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer><div class="wrap">© 2026 Oliver Harris</div></footer>
+
+<script>
+  // Highlight the current section in the top bar
+  (function(){
+    var links = document.querySelectorAll('.nav a');
+    var map = {};
+    links.forEach(function(a){ map[a.getAttribute('href').slice(1)] = a; });
+    var ids = ['about','podcast','radio','projects','skills','contact'];
+    function update(){
+      var current = null;
+      var y = window.scrollY + 120;
+      ids.forEach(function(id){ var el = document.getElementById(id); if (el && el.offsetTop <= y) current = id; });
+      if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight - 4) current = 'contact';
+      links.forEach(function(a){ a.classList.remove('active'); });
+      if (current && map[current]) map[current].classList.add('active');
+    }
+    window.addEventListener('scroll', update, {passive:true});
+    update();
+  })();
+</script>
+</body>
+</html>
