@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://oliverharrismedia.co.uk/sitemap.xml
