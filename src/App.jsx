@@ -5,31 +5,23 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { linkedinPosts, LINKEDIN_PROFILE } from './linkedin.js';
 import { instagramReels, INSTAGRAM_PROFILE } from './instagram.js';
 import { pages, pageFor } from './pages.js';
-import Backdrop from './Backdrop.jsx';
+import PitchLines from './Backdrop.jsx';
 import { projects } from './projects.js';
 import { episodes, highlights, interviews, practiceInterviews, CHANNEL } from './youtube.js';
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
-const EMAIL = 'harrisoliver073@gmail.com';
+const EMAIL = 'oliver@oliverharrismedia.co.uk';
 const YT = id => `https://www.youtube.com/watch?v=${id}`;
 const thumb = id => `https://i.ytimg.com/vi/${id}/maxresdefault.jpg`;
 const href = id => pages.find(p => p.id === id).path;
 
-// Only facts from the CV and the accounts
-const metrics = [
-  ['20+', 'podcast episodes produced'],
-  ['12', 'shorts edited for Instagram'],
-  ['Nov 2025', 'on air at Youth Choice'],
-  ['2025', 'Employee of the Year']
-];
-
 // Frames from the videos themselves (YouTube thumbnails)
 const work = [
   // A clean frame from inside the recording (the thumbnail has its own text baked in)
-  { id: '_V1SWbcVk5g', tag: '01 / podcast', title: 'Mark Chapman on Locker Room Pulse', href: href('podcast'), img: 'https://i.ytimg.com/vi/_V1SWbcVk5g/maxres2.jpg' },
-  { id: 'RvHx7rrYhKI', tag: '02 / studio', title: 'Sports interview set', href: href('projects') },
-  { id: 'h3gAJZu_2rs', tag: '03 / highlights', title: 'Staines vs Farnborough', href: href('video'), wide: true }
+  { id: '_V1SWbcVk5g', tag: 'Podcast', title: 'Mark Chapman on Locker Room Pulse', href: href('podcast'), img: 'https://i.ytimg.com/vi/_V1SWbcVk5g/maxres2.jpg' },
+  { id: 'RvHx7rrYhKI', tag: 'Studio', title: 'Sports interview set', href: href('projects') },
+  { id: 'h3gAJZu_2rs', tag: 'Highlights', title: 'Staines vs Farnborough', href: href('video'), wide: true }
 ];
 
 // The front page recap: one line per area, each opening its own page
@@ -98,11 +90,11 @@ function Contact() {
     <section className="band band-end" id="contact" aria-labelledby="contact-title">
       <div className="wrap split">
         <div>
-          <h2 id="contact-title">Let's make<br />the next show</h2>
+          <h2 id="contact-title">Get in touch</h2>
           <p className="band-lede">I'm looking for apprenticeships and entry-level roles in broadcast production and live events.</p>
         </div>
         <div className="split-side">
-          <a className="pill pill-big" href={`mailto:${EMAIL}`}>{EMAIL}</a>
+          <a className="btn btn-big" href={`mailto:${EMAIL}`}>{EMAIL}</a>
           <ul className="contact-links">
             <li><a href="https://oliverharris6.wordpress.com/"><span>Coursework</span>oliverharris6.wordpress.com <Arrow /></a></li>
             <li><a href="https://www.youtube.com/@LockerRoomPulse"><span>YouTube</span>@LockerRoomPulse <Arrow /></a></li>
@@ -150,20 +142,17 @@ function YouTubePlayer({ id, title, thumbSize = 'maxresdefault', big = false }) 
 function Home() {
   return (
     <>
-      <section className="hero wrap" aria-labelledby="hero-title">
-        <div className="hero-grid">
-          <div>
-            <p className="eyebrow">Sports podcast and radio producer · Epsom, Surrey</p>
-            <h1 id="hero-title">Oliver Harris</h1>
-          </div>
-          <div className="hero-side">
-            <p>I produce, edit and present sports content. I run production for the Locker Room Pulse podcast and host and produce shows on Youth Choice radio. Open to apprenticeships in broadcast production and live events.</p>
-            <a className="pill" href={href('podcast')}>See my work <Arrow /></a>
-          </div>
+      <section className="hero" aria-labelledby="hero-title">
+        {/* Photo of Oliver at work: drop the real file in public/images/hero.jpg (served as /images/hero.jpg) */}
+        <img className="hero-photo" src="/images/hero.jpg" alt="" width="1920" height="1080" fetchPriority="high" />
+        <PitchLines />
+        <div className="wrap hero-inner">
+          <p className="eyebrow">Sports podcast and radio producer · Epsom, Surrey</p>
+          <h1 id="hero-title">Oliver Harris</h1>
+          <p className="hero-intro">I produce, edit and present sports content. I run production for the Locker Room Pulse podcast and host and produce shows on Youth Choice radio. Open to apprenticeships in broadcast production and live events.</p>
+          <p className="hero-guests">I've produced episodes with Mark Chapman, Alfie Essex, Max Pitman and Adam Cash.</p>
+          <a className="btn" href={href('podcast')}>See my work</a>
         </div>
-        <dl className="metrics">
-          {metrics.map(([n, l]) => <div key={l}><dt>{n}</dt><dd>{l}</dd></div>)}
-        </dl>
       </section>
 
       <section className="section wrap" aria-labelledby="recap-title">
@@ -172,13 +161,11 @@ function Home() {
           <p className="split-side">A final-year Creative Media Production student with a Distinction in my Diploma. Most of my work is in sport. Each line below opens its own page.</p>
         </div>
         <ol className="recap">
-          {recap.map(([id, title, text], i) => (
+          {recap.map(([id, title, text]) => (
             <li key={id}>
               <a href={href(id)}>
-                <span className="n">{String(i + 1).padStart(2, '0')}</span>
                 <span className="recap-title">{title}</span>
                 <span className="recap-text">{text}</span>
-                <Arrow />
               </a>
             </li>
           ))}
@@ -211,7 +198,7 @@ function Podcast({ reduced }) {
     <>
       <PageHead eyebrow="Head Podcast Producer · since November 2025" title="Locker Room Pulse">
         <p>A weekly student-run sports podcast covering football, basketball, tennis, boxing and more. I'm Head Podcast Producer and a co-host, and I've produced over 20 episodes, one every week.</p>
-        <a className="pill" href="https://www.youtube.com/@LockerRoomPulse">Watch on YouTube <Arrow /></a>
+        <a className="btn" href="https://www.youtube.com/@LockerRoomPulse">Watch on YouTube</a>
       </PageHead>
 
       <section className="band" aria-labelledby="role-title">
@@ -221,10 +208,10 @@ function Podcast({ reduced }) {
             <p className="band-lede">Everything that happens between booking a guest and the episode going live.</p>
           </div>
           <ol className="duties">
-            {duties.map(([t, d], i) => (
+            {duties.map(([t, d]) => (
               <li key={t}>
                 <details>
-                  <summary><span className="n">{String(i + 1).padStart(2, '0')}</span><span className="t">{t}</span><span className="plus" aria-hidden="true" /></summary>
+                  <summary><span className="t">{t}</span><span className="plus" aria-hidden="true" /></summary>
                   <p>{d}</p>
                 </details>
               </li>
@@ -239,8 +226,8 @@ function Podcast({ reduced }) {
           <div className="split-side">
             <p>Every episode and extra from the Locker Room Pulse YouTube channel, newest first. Press play to watch here on the page.</p>
             <div className="actions">
-              <a className="pill" href={CHANNEL}>Subscribe on YouTube <Arrow /></a>
-              <a className="pill pill-ghost" href={INSTAGRAM_PROFILE}>Follow on Instagram</a>
+              <a className="btn" href={CHANNEL}>Subscribe on YouTube</a>
+              <a className="btn btn-ghost" href={INSTAGRAM_PROFILE}>Follow on Instagram</a>
             </div>
           </div>
         </div>
@@ -275,7 +262,7 @@ function Podcast({ reduced }) {
               </div>
             ))}
           </div>
-          <a className="link" href={INSTAGRAM_PROFILE}>See all on Instagram <Arrow /></a>
+          <a className="link" href={INSTAGRAM_PROFILE}>See all on Instagram</a>
         </div>
       </section>
     </>
@@ -293,8 +280,8 @@ function Radio() {
           <h2 id="method-title">How I produce<br />a show</h2>
           <div className="split-side">
             <ol className="steps">
-              <li><span className="n">01</span><span className="t">Running order</span><span className="d">For each show I build the running order in Zetta, the playout system used by professional radio stations.</span></li>
-              <li><span className="n">02</span><span className="t">Segues</span><span className="d">I edit the segues so music fades cleanly in and out of each link, keeping the show tight and on time.</span></li>
+              <li><span className="t">Running order</span><span className="d">For each show I build the running order in Zetta, the playout system used by professional radio stations.</span></li>
+              <li><span className="t">Segues</span><span className="d">I edit the segues so music fades cleanly in and out of each link, keeping the show tight and on time.</span></li>
             </ol>
           </div>
         </div>
@@ -308,7 +295,7 @@ function Radio() {
           <div className="split-side">
             <ol className="list">
               {shows.map(([id, label]) => (
-                <li key={id}><a href={`https://open.spotify.com/episode/${id}`}><span className="list-title">{label}</span><span className="list-kind">Spotify</span><Arrow /></a></li>
+                <li key={id}><a href={`https://open.spotify.com/episode/${id}`}><span className="list-title">{label}</span><span className="list-kind">Spotify</span></a></li>
               ))}
             </ol>
           </div>
@@ -375,7 +362,7 @@ function Projects() {
     <>
       <PageHead eyebrow="Creative Media Production" title="College projects">
         <p>Every project from my Creative Media Production course, from my first highlight packages to my Final Major Project.</p>
-        <a className="pill pill-ghost" href="https://oliverharris6.wordpress.com/">See all coursework <Arrow /></a>
+        <a className="btn btn-ghost" href="https://oliverharris6.wordpress.com/">See all coursework</a>
       </PageHead>
       <section className="section section-tight wrap" aria-label="Projects">
         <div className="cards">
@@ -387,10 +374,10 @@ function Projects() {
               {pr.quote && <blockquote className="card-quote"><p>{pr.quote}</p></blockquote>}
               {pr.links.length > 0 && (
                 <ul className="project-links">
-                  {pr.links.map(([label, url]) => <li key={url}><a className="link" href={url}>{label} <Arrow /></a></li>)}
+                  {pr.links.map(([label, url]) => <li key={url}><a className="link" href={url}>{label}</a></li>)}
                 </ul>
               )}
-              {pr.wp && <a className="card-more" href={pr.wp}>Full write-up on my coursework site <Arrow /></a>}
+              {pr.wp && <a className="card-more" href={pr.wp}>Full write-up on my coursework site</a>}
             </article>
           ))}
         </div>
@@ -472,7 +459,7 @@ function LinkedIn() {
     <>
       <PageHead eyebrow="Posts and updates" title="LinkedIn">
         <p>Posts about producing The Locker Room Pulse and presenting our Heinz project, with the clips and photos.</p>
-        <a className="pill pill-ghost" href={LINKEDIN_PROFILE}>Follow me on LinkedIn <Arrow /></a>
+        <a className="btn btn-ghost" href={LINKEDIN_PROFILE}>Follow me on LinkedIn</a>
       </PageHead>
       <section className="section section-tight wrap" aria-label="LinkedIn posts">
         <div className="li-grid">
@@ -539,7 +526,6 @@ export default function App({ path }) {
   return (
     <>
       <a className="skip" href="#main">Skip to content</a>
-      <Backdrop />
 
       <header className="nav">
         <div className="wrap nav-inner">
@@ -548,7 +534,7 @@ export default function App({ path }) {
             <ul className="nav-links">{menuLinks()}</ul>
           </nav>
           <div className="nav-end">
-            <a className="pill pill-sm" href="#contact">Get in touch</a>
+            <a className="btn btn-sm" href="#contact">Get in touch</a>
             <button className="menu-btn" type="button" aria-expanded={menuOpen} aria-controls="menu" onClick={toggleMenu}>Menu</button>
           </div>
         </div>
@@ -564,7 +550,7 @@ export default function App({ path }) {
           <ul className="menu-links">{menuLinks('menu-link')}</ul>
         </nav>
         <div className="wrap menu-foot">
-          <a className="pill" href={`mailto:${EMAIL}`}>Email me <Arrow /></a>
+          <a className="btn" href={`mailto:${EMAIL}`}>Email me</a>
         </div>
       </dialog>
 

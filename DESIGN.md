@@ -1,6 +1,22 @@
 # Design: Oliver Harris portfolio
 
-## Current style (Nov 2026): blue animated theme after b3xgraphics.com
+## Current style (Nov 2026): broadcast studio, option A
+
+Oliver asked for a site that looks like a real sports podcast and radio producer's, not an AI template. He picked
+option A of two (A: studio near-black, B: off-white paper).
+
+- Ground `#0F0F10`, raised surfaces and bands `#18181A`, text `#F3F1EC`, muted `#A6A39C`, hairlines at 12%.
+- One "on air" red: `#D42A22` for buttons, the award, the play buttons and the progress line (white text on it),
+  hover `#B8221B`, red text on dark `#FF6A5E`. The current page in the menu has a small red on-air dot.
+- Headings: Bricolage Grotesque 600 (Google Fonts), sentence case. Body: Helvetica Neue / Arial.
+- Flat: no glows, no blur, no glass, no gradients except the photo scrim. Buttons are 4px radius blocks; cards 6px.
+- Home hero: full-width photo of Oliver at work (`public/images/hero.jpg`, placeholder until he adds it), a dark
+  scrim from the left, and the camera-plan pitch lines (`src/Backdrop.jsx`) as a still, faint overlay.
+- No row numbers. Arrows only on the Selected work cards and the external contact links.
+
+The blue b3xgraphics, Bracken House and running-order designs below are earlier versions.
+
+## Earlier style: blue animated theme after b3xgraphics.com
 
 Oliver's favourite things about b3xgraphics.com were the blue background and how it animates. Recreated in our
 own code (no code, art or copy taken): a fixed backdrop of deep navy `#02132C` with electric-blue glows that
@@ -12,7 +28,7 @@ navy text or navy pills with a cyan edge. Reduced motion: the finished drawing, 
 
 The Bracken House and running-order designs below are earlier versions.
 
-## Current style (Nov 2026): Bracken House reference
+## Earlier style: Bracken House reference
 
 Oliver asked for the look of the "Bracken House" portfolio template in Kombai's gallery
 (kombai.com/gallery/inspirations/portfolio-website-web-8). Style only: its words and brand are not used.
