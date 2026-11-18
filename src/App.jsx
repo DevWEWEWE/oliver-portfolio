@@ -26,7 +26,8 @@ const metrics = [
 
 // Frames from the videos themselves (YouTube thumbnails)
 const work = [
-  { id: '_V1SWbcVk5g', tag: '01 / podcast', title: 'Mark Chapman on Locker Room Pulse', href: href('podcast') },
+  // A clean frame from inside the recording (the thumbnail has its own text baked in)
+  { id: '_V1SWbcVk5g', tag: '01 / podcast', title: 'Mark Chapman on Locker Room Pulse', href: href('podcast'), img: 'https://i.ytimg.com/vi/_V1SWbcVk5g/maxres2.jpg' },
   { id: 'RvHx7rrYhKI', tag: '02 / studio', title: 'Sports interview set', href: href('projects') },
   { id: 'h3gAJZu_2rs', tag: '03 / highlights', title: 'Staines vs Farnborough', href: href('video'), wide: true }
 ];
@@ -38,7 +39,7 @@ const recap = [
   ['radio', 'Youth Choice radio', 'Hosting shows since November 2025 and producing a daily show, building each running order in Zetta and editing the segues.'],
   ['projects', 'College projects', 'Highlight packages, radio sports bulletins, documentaries on the Baller League and Sutton United’s FA Cup history, a studio interview set, a Heinz campaign pitch and an essay on sports media.'],
   ['about', 'Experience and skills', 'Retail Assistant at Chessington Garden Centre since April 2025 and Employee of the Year 2025. Premiere Pro, Audition, Zetta and studio cameras.'],
-  ['posts', 'On LinkedIn', 'Posts about producing the Mark Chapman and Alfie Essex episodes and presenting our Heinz project at The Shard.']
+  ['linkedin', 'On LinkedIn', 'Posts about producing the Mark Chapman and Alfie Essex episodes and presenting our Heinz project at The Shard.']
 ];
 
 const duties = [
@@ -97,7 +98,7 @@ function Contact() {
     <section className="band band-end" id="contact" aria-labelledby="contact-title">
       <div className="wrap split">
         <div>
-          <h2 id="contact-title">Let's make<br />the next show.</h2>
+          <h2 id="contact-title">Let's make<br />the next show</h2>
           <p className="band-lede">I'm looking for apprenticeships and entry-level roles in broadcast production and live events.</p>
         </div>
         <div className="split-side">
@@ -153,7 +154,7 @@ function Home() {
         <div className="hero-grid">
           <div>
             <p className="eyebrow">Sports podcast and radio producer · Epsom, Surrey</p>
-            <h1 id="hero-title">Oliver Harris.</h1>
+            <h1 id="hero-title">Oliver Harris</h1>
           </div>
           <div className="hero-side">
             <p>I produce, edit and present sports content. I run production for the Locker Room Pulse podcast and host and produce shows on Youth Choice radio. Open to apprenticeships in broadcast production and live events.</p>
@@ -167,7 +168,7 @@ function Home() {
 
       <section className="section wrap" aria-labelledby="recap-title">
         <div className="split">
-          <h2 id="recap-title">What I've<br />done.</h2>
+          <h2 id="recap-title">What I've<br />done</h2>
           <p className="split-side">A final-year Creative Media Production student with a Distinction in my Diploma. Most of my work is in sport. Each line below opens its own page.</p>
         </div>
         <ol className="recap">
@@ -186,13 +187,13 @@ function Home() {
 
       <section className="section wrap" aria-labelledby="work-title">
         <div className="split">
-          <h2 id="work-title">Selected<br />work.</h2>
+          <h2 id="work-title">Selected<br />work</h2>
           <p className="split-side">Podcast episodes, studio interviews and match highlights I produced, shot or edited.</p>
         </div>
         <div className="tiles">
           {work.map(w => (
             <a key={w.id} className={`tile${w.wide ? ' tile-wide' : ''}`} href={w.href}>
-              <img src={thumb(w.id)} alt="" loading="lazy" decoding="async" width="1280" height="720" />
+              <img src={w.img ?? thumb(w.id)} alt="" loading="lazy" decoding="async" width="1280" height="720" />
               <span className="tile-tag">{w.tag}</span>
               <span className="tile-title">{w.title} <Arrow /></span>
             </a>
@@ -208,7 +209,7 @@ function Podcast({ reduced }) {
   const scrollShorts = dir => shortsRef.current?.scrollBy({ left: dir * 632, behavior: reduced ? 'auto' : 'smooth' });
   return (
     <>
-      <PageHead eyebrow="Head Podcast Producer · since November 2025" title="Locker Room Pulse.">
+      <PageHead eyebrow="Head Podcast Producer · since November 2025" title="Locker Room Pulse">
         <p>A weekly student-run sports podcast covering football, basketball, tennis, boxing and more. I'm Head Podcast Producer and a co-host, and I've produced over 20 episodes, one every week.</p>
         <a className="pill" href="https://www.youtube.com/@LockerRoomPulse">Watch on YouTube <Arrow /></a>
       </PageHead>
@@ -216,7 +217,7 @@ function Podcast({ reduced }) {
       <section className="band" aria-labelledby="role-title">
         <div className="wrap split">
           <div>
-            <h2 id="role-title">My role on<br />the show.</h2>
+            <h2 id="role-title">My role on<br />the show</h2>
             <p className="band-lede">Everything that happens between booking a guest and the episode going live.</p>
           </div>
           <ol className="duties">
@@ -234,7 +235,7 @@ function Podcast({ reduced }) {
 
       <section className="section wrap" id="episodes" aria-labelledby="episodes-title">
         <div className="split">
-          <h2 id="episodes-title">Watch the<br />episodes.</h2>
+          <h2 id="episodes-title">Watch the<br />episodes</h2>
           <div className="split-side">
             <p>Every episode and extra from the Locker Room Pulse YouTube channel, newest first. Press play to watch here on the page.</p>
             <div className="actions">
@@ -284,12 +285,12 @@ function Podcast({ reduced }) {
 function Radio() {
   return (
     <>
-      <PageHead eyebrow="Host and producer · since November 2025" title="Youth Choice radio.">
+      <PageHead eyebrow="Host and producer · since November 2025" title="Youth Choice radio">
         <p>I've hosted shows on Youth Choice college radio since November 2025, and I produce a daily show.</p>
       </PageHead>
       <section className="section section-tight wrap" aria-labelledby="method-title">
         <div className="split">
-          <h2 id="method-title">How I produce<br />a show.</h2>
+          <h2 id="method-title">How I produce<br />a show</h2>
           <div className="split-side">
             <ol className="steps">
               <li><span className="n">01</span><span className="t">Running order</span><span className="d">For each show I build the running order in Zetta, the playout system used by professional radio stations.</span></li>
@@ -301,7 +302,7 @@ function Radio() {
       <section className="section wrap" aria-labelledby="show-title">
         <div className="split">
           <div>
-            <h2 id="show-title">Listen to<br />a show.</h2>
+            <h2 id="show-title">Listen to<br />a show</h2>
             <p className="side-note">Ollie and Freddie, 10 November 2026. The whole show, then each link on its own. A link is the talk we do between songs.</p>
           </div>
           <div className="split-side">
@@ -320,12 +321,12 @@ function Radio() {
 function Video() {
   return (
     <>
-      <PageHead eyebrow="Editing and production" title="Highlights and interviews.">
+      <PageHead eyebrow="Editing and production" title="Highlights and interviews">
         <p>Match highlight packages I edited and interviews I produced. Press play to watch here on the page.</p>
       </PageHead>
       <section className="section section-tight wrap" id="highlights" aria-labelledby="highlights-title">
         <div className="split split-stack">
-          <h2 id="highlights-title">Highlights.</h2>
+          <h2 id="highlights-title">Highlights</h2>
           <p className="split-side">College highlight packages: Barnsley vs Man United U21 in the EFL Trophy, my first highlight edit, and Staines vs Farnborough rugby, cut from raw match footage and a timecode sheet.</p>
         </div>
         <ul className="videos videos-2">
@@ -339,7 +340,7 @@ function Video() {
       </section>
       <section className="section wrap" id="interviews" aria-labelledby="interviews-title">
         <div className="split split-stack">
-          <h2 id="interviews-title">Interviews.</h2>
+          <h2 id="interviews-title">Interviews</h2>
           <p className="split-side">A two-part college interview with Chris Powell on his playing career and his coaching career, and practice interviews from our studio set.</p>
         </div>
         <ul className="videos videos-feature">
@@ -372,7 +373,7 @@ function Video() {
 function Projects() {
   return (
     <>
-      <PageHead eyebrow="Creative Media Production" title="College projects.">
+      <PageHead eyebrow="Creative Media Production" title="College projects">
         <p>Every project from my Creative Media Production course, from my first highlight packages to my Final Major Project.</p>
         <a className="pill pill-ghost" href="https://oliverharris6.wordpress.com/">See all coursework <Arrow /></a>
       </PageHead>
@@ -405,12 +406,12 @@ function Projects() {
 function About() {
   return (
     <>
-      <PageHead eyebrow="Creative Media Production · final year" title="About me.">
+      <PageHead eyebrow="Creative Media Production · final year" title="About me">
         <p>I'm a final-year Creative Media Production student with a Distinction in my Creative Media Production Diploma. Most of my work is in sport: podcast episodes, interviews, highlight packages, radio shows and documentaries.</p>
       </PageHead>
       <section className="section section-tight wrap" aria-labelledby="approach-title">
         <div className="split">
-          <h2 id="approach-title">How I<br />work.</h2>
+          <h2 id="approach-title">How I<br />work</h2>
           <div className="split-side about">
             <p className="lead">I enjoy the whole production process, from planning a shoot and writing risk assessments to recording, editing, designing the thumbnail and getting the finished piece in front of an audience.</p>
             <p>I'm now looking for an apprenticeship or entry-level role where I can build a career in broadcast production and live events.</p>
@@ -425,7 +426,7 @@ function About() {
 
       <section className="section wrap" aria-labelledby="skills-title">
         <div className="split">
-          <h2 id="skills-title">Skills<br />and kit.</h2>
+          <h2 id="skills-title">Skills<br />and kit</h2>
           <div className="split-side">
             <p>The software and equipment I use regularly.</p>
             <dl className="rows">
@@ -438,7 +439,7 @@ function About() {
       <section className="section wrap" aria-labelledby="exp-title">
         <div className="split">
           <div>
-            <h2 id="exp-title">Work<br />experience.</h2>
+            <h2 id="exp-title">Work<br />experience</h2>
             <p className="side-note">Experience outside media that I bring to every production.</p>
           </div>
           <div className="split-side">
@@ -466,10 +467,10 @@ function About() {
   );
 }
 
-function Posts() {
+function LinkedIn() {
   return (
     <>
-      <PageHead eyebrow="LinkedIn" title="Posts.">
+      <PageHead eyebrow="Posts and updates" title="LinkedIn">
         <p>Posts about producing The Locker Room Pulse and presenting our Heinz project, with the clips and photos.</p>
         <a className="pill pill-ghost" href={LINKEDIN_PROFILE}>Follow me on LinkedIn <Arrow /></a>
       </PageHead>
@@ -490,7 +491,7 @@ function Posts() {
   );
 }
 
-const views = { home: Home, podcast: Podcast, video: Video, radio: Radio, projects: Projects, about: About, posts: Posts };
+const views = { home: Home, podcast: Podcast, video: Video, radio: Radio, projects: Projects, about: About, linkedin: LinkedIn };
 
 /* ---------- Shell ---------- */
 

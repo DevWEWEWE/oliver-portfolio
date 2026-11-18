@@ -9,7 +9,7 @@ export const pages = [
   { id: 'radio', path: '/radio/', label: 'Radio', title: 'Youth Choice radio – Oliver Harris', description: 'Hosting and producing shows on Youth Choice college radio since November 2025, with running orders built in Zetta.' },
   { id: 'projects', path: '/projects/', label: 'Projects', title: 'College projects – Oliver Harris', description: 'Every Creative Media Production project: highlight packages, sports bulletins, the Baller League and Sutton United documentaries, a studio interview set, a Heinz pitch and a sports media essay.' },
   { id: 'about', path: '/about/', label: 'About', title: 'About Oliver Harris – skills and experience', description: 'About Oliver Harris: Creative Media Production student, skills and kit, and work experience at Chessington Garden Centre.' },
-  { id: 'posts', path: '/posts/', label: 'Posts', title: 'LinkedIn posts – Oliver Harris', description: 'LinkedIn posts about producing Locker Room Pulse and presenting a Heinz project at The Shard.' }
+  { id: 'linkedin', path: '/linkedin/', label: 'LinkedIn', title: 'LinkedIn posts – Oliver Harris', description: 'LinkedIn posts about producing Locker Room Pulse and presenting a Heinz project at The Shard.' }
 ];
 
 export const pageFor = path => pages.find(p => p.path === path || p.path === `${path}/`) ?? pages[0];
