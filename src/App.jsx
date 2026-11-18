@@ -11,7 +11,7 @@ import { episodes, highlights, interviews, practiceInterviews, CHANNEL } from '.
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
-const EMAIL = 'oliver@oliverharrismedia.co.uk';
+const EMAIL = 'harrisoliver073@gmail.com';
 const YT = id => `https://www.youtube.com/watch?v=${id}`;
 const thumb = id => `https://i.ytimg.com/vi/${id}/maxresdefault.jpg`;
 const href = id => pages.find(p => p.id === id).path;

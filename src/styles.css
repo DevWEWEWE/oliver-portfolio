@@ -287,7 +287,7 @@ iframe:focus-visible{outline:2px solid var(--accent-text);outline-offset:3px}
   .shorts-nav{display:none}
   .li-post iframe{height:var(--li-h-phone)}
   .award{grid-template-columns:1fr;gap:12px}
-  .contact-links a{grid-template-columns:1fr auto}
+  .contact-links a{grid-template-columns:1fr auto;row-gap:2px;padding:12px 0}
   .contact-links span:first-child{grid-column:1 / -1}
   .foot{flex-direction:column}
 }
