@@ -1,5 +1,17 @@
 # Design: Oliver Harris portfolio
 
+## Current style (Nov 2026): blue animated theme after b3xgraphics.com
+
+Oliver's favourite things about b3xgraphics.com were the blue background and how it animates. Recreated in our
+own code (no code, art or copy taken): a fixed backdrop of deep navy `#02132C` with electric-blue glows that
+breathe (CSS scale and opacity, 11 to 14 s), and a line drawing that etches in on load and then carries sparks.
+Their drawing is a football tactics board; ours is a camera plan for a sports broadcast (pitch, three camera
+positions with fields of view, ruler), from Oliver's multi-camera and floor-plan work. Content sits on frosted
+glass (radius 22 to 28, white edge at 14%), headings are Archivo 900 in capitals, buttons are cyan `#3FB3F5` with
+navy text or navy pills with a cyan edge. Reduced motion: the finished drawing, nothing moving.
+
+The Bracken House and running-order designs below are earlier versions.
+
 ## Current style (Nov 2026): Bracken House reference
 
 Oliver asked for the look of the "Bracken House" portfolio template in Kombai's gallery

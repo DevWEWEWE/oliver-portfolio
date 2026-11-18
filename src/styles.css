@@ -1,27 +1,32 @@
 /* Style after the Bracken House reference: warm off-white, heavy black grotesque, one orange-red accent */
 :root{
-  --ground:#F4F2ED;
-  --ink:#171915;
-  --muted:#63665E;      /* reference #6E7169, darkened to pass AA on the ground */
-  --line:#CBC9C1;
-  --tile:#EBE8E1;
-  --sage:#DCE1D4;
-  --band:#171915;
-  --band-ink:#F4F2ED;
-  --band-muted:#A6A99F;
-  --band-line:rgba(244,242,237,.16);
-  --accent:#D03C1A;     /* reference #E94924, deepened so the button text passes AA */
-  --accent-ink:#FFF8EF;
-  --accent-text:#B5321A; /* orange for text on the ground: 5.3:1 */
+  /* Blue theme after b3xgraphics.com: deep navy, electric blue glows, glass panels, cyan accents */
+  --ground:#02132C;
+  --ink:#FFFFFF;
+  --muted:#A9BDD9;
+  --line:rgba(255,255,255,.16);
+  --tile:rgba(255,255,255,.06);
+  --sage:#0B2A55;
+  --glass:linear-gradient(155deg, rgba(9,26,54,.58) 0%, rgba(3,13,30,.72) 100%);
+  --glass-line:rgba(255,255,255,.14);
+  --band:var(--glass);
+  --band-ink:#FFFFFF;
+  --band-muted:#A9BDD9;
+  --band-line:rgba(255,255,255,.14);
+  --accent:#3FB3F5;
+  --accent-ink:#02132C;
+  --accent-text:#7FCBFF;
+  --cyan:#04B5FF;
 
   --font:"Helvetica Neue", Helvetica, Arial, sans-serif;
+  --display:"Archivo", "Helvetica Neue", Arial, sans-serif;
   --wrap:1180px;
   --pad:clamp(20px, 4vw, 40px);
   --nav:72px;
   --ease:cubic-bezier(.2,.8,.2,1);
 
-  --t-h1:clamp(3.4rem, 1rem + 7.6vw, 7.2rem);
-  --t-h2:clamp(2.6rem, 1rem + 4.4vw, 5.25rem);
+  --t-h1:clamp(3rem, .8rem + 7vw, 6.6rem);
+  --t-h2:clamp(2.2rem, .9rem + 3.6vw, 4.4rem);
 }
 
 *{box-sizing:border-box}
@@ -276,3 +281,82 @@ details[open] .plus::after{rotate:0deg}
 iframe:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
 /* Focus inside a third-party embed lands in its own document: ring the card instead */
 .li-post:focus-within,.short:focus-within,.embed-focus{outline:2px solid var(--accent);outline-offset:3px}
+
+/* =====================================================================
+   Blue theme (after b3xgraphics.com): backdrop, glass panels, display type
+   ===================================================================== */
+body{background:var(--ground)}
+
+/* ---------- Backdrop: fixed behind every page ---------- */
+.bd{position:fixed;inset:0;z-index:-1;overflow:hidden;background:
+  radial-gradient(60% 70% at 92% 18%, #2F6FE8 0%, rgba(47,111,232,0) 60%),
+  radial-gradient(55% 55% at 6% 100%, #1E5BD8 0%, rgba(30,91,216,0) 62%),
+  linear-gradient(160deg, #031531 0%, #02132C 55%, #04205A 100%)}
+.bd-glow{position:absolute;border-radius:50%;filter:blur(40px);will-change:transform,opacity}
+.bd-glow-a{width:62vmax;height:62vmax;right:-22vmax;top:-26vmax;background:radial-gradient(closest-side, rgba(56,132,255,.85), rgba(56,132,255,0))}
+.bd-glow-b{width:48vmax;height:48vmax;left:-18vmax;bottom:-24vmax;background:radial-gradient(closest-side, rgba(36,110,240,.7), rgba(36,110,240,0))}
+.bd-lines{position:absolute;inset:0;width:100%;height:100%}
+.bd-line{fill:none;stroke:rgba(255,255,255,.24);stroke-width:1;vector-effect:non-scaling-stroke}
+.bd-spark{fill:none;stroke:#BFE8FF;stroke-width:1.6;stroke-linecap:round;vector-effect:non-scaling-stroke;stroke-dasharray:.05 1.05;stroke-dashoffset:.05;opacity:0;filter:drop-shadow(0 0 4px #04B5FF)}
+
+@media (prefers-reduced-motion:no-preference){
+  /* Breathing glows */
+  .bd-glow-a{animation:breathe 11s ease-in-out infinite alternate}
+  .bd-glow-b{animation:breathe 14s ease-in-out -5s infinite alternate}
+  /* Etch: each group draws after the one before, lines within a group a beat apart */
+  .bd-line{stroke-dasharray:1 1;stroke-dashoffset:1;animation:etch 1.4s cubic-bezier(.65,0,.35,1) forwards;animation-delay:calc(.25s + var(--g) * .35s + var(--i) * .03s)}
+  /* Sparks: a short bright dash travels the line, then rests until its next turn */
+  .bd-spark{animation:spark 10s linear infinite;animation-delay:calc(3s + var(--delay))}
+}
+@keyframes breathe{from{transform:scale(1);opacity:.7}to{transform:scale(1.14);opacity:1}}
+@keyframes etch{to{stroke-dashoffset:0}}
+@keyframes spark{
+  0%{stroke-dashoffset:.05;opacity:0}
+  2%{opacity:1}
+  16%{opacity:1}
+  18%{stroke-dashoffset:-1;opacity:0}
+  100%{stroke-dashoffset:-1;opacity:0}
+}
+
+/* ---------- Display type: heavy, wide capitals ---------- */
+.hero h1,.page-head h1,.split h2,.band h2{font-family:var(--display);font-weight:900;font-variation-settings:"wdth" 112;text-transform:uppercase;letter-spacing:-.01em;line-height:.92;margin-left:-.03em}
+.hero h1,.page-head h1{font-size:var(--t-h1)}
+.split h2,.band h2{font-size:var(--t-h2)}
+.metrics dt,.recap-title,.h3,.job-title,.award-n,.award-title,.menu-link,.tile-title,.shorts-head .h3,.card .h3{font-family:var(--display);font-weight:800;font-variation-settings:"wdth" 108;letter-spacing:-.01em}
+.eyebrow,.card-tag{color:var(--accent-text)}
+
+/* ---------- Glass ---------- */
+.nav{top:12px;width:min(var(--wrap) + 48px, 100% - 24px);margin:12px auto 0;border-radius:22px;background:linear-gradient(155deg, rgba(9,26,54,.9) 0%, rgba(3,13,30,.94) 100%);border:1px solid var(--glass-line);-webkit-backdrop-filter:blur(10px) saturate(1.3);backdrop-filter:blur(10px) saturate(1.3);box-shadow:0 18px 48px rgba(0,6,20,.26), inset 0 1px 0 rgba(255,255,255,.1)}
+.nav .wrap{width:calc(100% - 48px)}
+.progress{left:22px;right:22px;background:var(--cyan)}
+.band{width:min(var(--wrap) + 96px, 100% - 24px);margin-inline:auto;border-radius:28px;border:1px solid var(--glass-line);-webkit-backdrop-filter:blur(8px) saturate(1.3);backdrop-filter:blur(8px) saturate(1.3);box-shadow:0 18px 48px rgba(0,6,20,.26), inset 0 1px 0 rgba(255,255,255,.1)}
+.band-end{margin-bottom:12px}
+.steps li,.card,.award,.recap a,.list a,.rows > div,.job-list li{-webkit-backdrop-filter:none;backdrop-filter:none}
+.steps li{border:1px solid var(--glass-line);border-radius:18px;background:var(--glass)}
+.card{background:var(--glass);border:1px solid var(--glass-line);border-radius:22px;padding:24px}
+.tile{border-radius:22px;border:1px solid var(--glass-line)}
+.award{border-radius:22px;background:linear-gradient(135deg,#3FB3F5,#2F6FE8);color:#02132C}
+.li-post,.short{border-radius:18px}
+.rows,.list,.recap,.job-list,.menu-links{border-top-color:rgba(255,255,255,.5)}
+.metrics{border-color:var(--line)}
+
+/* ---------- Pills: navy with a cyan edge; the main one fills cyan ---------- */
+.pill{box-shadow:0 0 0 0 rgba(4,181,255,0);transition:background-color .2s var(--ease),border-color .2s var(--ease),color .2s var(--ease),translate .2s var(--ease),box-shadow .25s var(--ease)}
+.pill:hover,.pill:focus-visible{background:#FFFFFF;border-color:#FFFFFF;color:var(--ground);box-shadow:0 8px 28px rgba(4,181,255,.35)}
+.pill-ghost,.pill-sm{background:#031B3D;color:#fff;border-color:rgba(4,181,255,.5)}
+.pill-ghost:hover,.pill-ghost:focus-visible,.pill-sm:hover,.pill-sm:focus-visible{background:#fff;color:var(--ground);border-color:#fff}
+.round{border-color:rgba(4,181,255,.5);background:#031B3D}
+.round:hover{background:#fff;color:var(--ground)}
+.pill-big:hover,.pill-big:focus-visible{background:#fff;border-color:#fff;color:var(--ground)}
+
+/* Menu dialog on the same blue */
+.menu{background:var(--ground) radial-gradient(60% 50% at 100% 0%, rgba(47,111,232,.6), rgba(47,111,232,0))}
+
+:focus-visible{outline-color:var(--cyan)}
+::selection{background:var(--cyan);color:var(--ground)}
+
+@media (max-width:720px){
+  .nav{top:8px;margin-top:8px;border-radius:18px}
+  .nav .wrap{width:calc(100% - 32px)}
+  .band{border-radius:22px}
+}

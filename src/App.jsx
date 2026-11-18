@@ -5,6 +5,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { linkedinPosts, LINKEDIN_PROFILE } from './linkedin.js';
 import { instagramReels, INSTAGRAM_PROFILE } from './instagram.js';
 import { pages, pageFor } from './pages.js';
+import Backdrop from './Backdrop.jsx';
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
@@ -475,6 +476,7 @@ export default function App({ path }) {
   return (
     <>
       <a className="skip" href="#main">Skip to content</a>
+      <Backdrop />
 
       <header className="nav">
         <div className="wrap nav-inner">
