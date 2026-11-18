@@ -6,6 +6,7 @@ import { linkedinPosts, LINKEDIN_PROFILE } from './linkedin.js';
 import { instagramReels, INSTAGRAM_PROFILE } from './instagram.js';
 import { pages, pageFor } from './pages.js';
 import Backdrop from './Backdrop.jsx';
+import { projects } from './projects.js';
 import { episodes, highlights, interviews, practiceInterviews, CHANNEL } from './youtube.js';
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
@@ -25,17 +26,17 @@ const metrics = [
 
 // Frames from the videos themselves (YouTube thumbnails)
 const work = [
-  { id: 'oGT1sZjNrgM', tag: '01 / podcast', title: 'Chris Powell interview', href: YT('oGT1sZjNrgM') },
+  { id: '_V1SWbcVk5g', tag: '01 / podcast', title: 'Mark Chapman on Locker Room Pulse', href: href('podcast') },
   { id: 'RvHx7rrYhKI', tag: '02 / studio', title: 'Sports interview set', href: href('projects') },
   { id: 'h3gAJZu_2rs', tag: '03 / highlights', title: 'Staines vs Farnborough', href: href('video'), wide: true }
 ];
 
 // The front page recap: one line per area, each opening its own page
 const recap = [
-  ['podcast', 'Locker Room Pulse', 'Head Podcast Producer and co-host since November 2025. Over 20 weekly episodes, guest interviews including Chris Powell, highlight edits and 12 Instagram shorts.'],
-  ['video', 'Highlights and interviews', 'Match highlights from Barnsley vs Man United and Staines vs Farnborough rugby, and interviews including Chris Powell on his playing and coaching career.'],
+  ['podcast', 'Locker Room Pulse', 'Head Podcast Producer and co-host since November 2025. Over 20 weekly episodes with guests including Mark Chapman, Max Pitman, Alfie Essex and Adam Cash, plus 12 Instagram shorts.'],
+  ['video', 'Highlights and interviews', 'Match highlights from Barnsley vs Man United U21 and Staines vs Farnborough rugby, a college interview with Chris Powell, and practice interviews from our studio set.'],
   ['radio', 'Youth Choice radio', 'Hosting shows since November 2025 and producing a daily show, building each running order in Zetta and editing the segues.'],
-  ['projects', 'College projects', 'A documentary on Sutton United’s FA Cup history, an essay on who controls sports media, a studio interview set I built and a Heinz campaign pitch.'],
+  ['projects', 'College projects', 'Highlight packages, radio sports bulletins, documentaries on the Baller League and Sutton United’s FA Cup history, a studio interview set, a Heinz campaign pitch and an essay on sports media.'],
   ['about', 'Experience and skills', 'Retail Assistant at Chessington Garden Centre since April 2025 and Employee of the Year 2025. Premiere Pro, Audition, Zetta and studio cameras.'],
   ['posts', 'On LinkedIn', 'Posts about producing the Mark Chapman and Alfie Essex episodes and presenting our Heinz project at The Shard.']
 ];
@@ -325,7 +326,7 @@ function Video() {
       <section className="section section-tight wrap" id="highlights" aria-labelledby="highlights-title">
         <div className="split split-stack">
           <h2 id="highlights-title">Highlights.</h2>
-          <p className="split-side">Highlight packages from Barnsley vs Man United in the EFL and Staines vs Farnborough rugby.</p>
+          <p className="split-side">College highlight packages: Barnsley vs Man United U21 in the EFL Trophy, my first highlight edit, and Staines vs Farnborough rugby, cut from raw match footage and a timecode sheet.</p>
         </div>
         <ul className="videos videos-2">
           {highlights.map(v => (
@@ -339,7 +340,7 @@ function Video() {
       <section className="section wrap" id="interviews" aria-labelledby="interviews-title">
         <div className="split split-stack">
           <h2 id="interviews-title">Interviews.</h2>
-          <p className="split-side">The Global interview, Chris Powell talking through his playing career and his coaching career, and practice interviews from our studio set.</p>
+          <p className="split-side">A two-part college interview with Chris Powell on his playing career and his coaching career, and practice interviews from our studio set.</p>
         </div>
         <ul className="videos videos-feature">
           {interviews.map((v, i) => (
@@ -352,7 +353,7 @@ function Video() {
 
         <div className="practice">
           <h3 className="practice-title">Practice interviews</h3>
-          <p className="practice-note">Filmed on our college studio set while I practised setting up and running a multi-camera interview, so the picture and sound quality is lower than my finished work.</p>
+          <p className="practice-note">Filmed at college while I practised setting up and running interviews, starting with the Global interview on a single camera and moving on to two cameras on our own studio set. They were made for practice, so the picture and sound quality is lower than my finished work.</p>
           <ul className="videos">
             {practiceInterviews.map(v => (
               <li key={v.id}>
@@ -372,41 +373,25 @@ function Projects() {
   return (
     <>
       <PageHead eyebrow="Creative Media Production" title="College projects.">
-        <p>Selected work from my Creative Media Production course.</p>
+        <p>Every project from my Creative Media Production course, from my first highlight packages to my Final Major Project.</p>
         <a className="pill pill-ghost" href="https://oliverharris6.wordpress.com/">See all coursework <Arrow /></a>
       </PageHead>
       <section className="section section-tight wrap" aria-label="Projects">
         <div className="cards">
-          <article className="card">
-            <p className="card-tag">Final Major Project</p>
-            <h2 className="h3">Final documentary</h2>
-            <p>A sports audio documentary on Sutton United's FA Cup history that I planned, researched, recorded and edited, then published as a podcast episode.</p>
-            <a className="link" href="https://open.spotify.com/episode/70miIYJU1hjJrxphGiWMu8">Listen on Spotify <Arrow /></a>
-          </article>
-          <article className="card">
-            <p className="card-tag">Unit 12, Specialist Study</p>
-            <h2 className="h3">Who tells sports stories now?</h2>
-            <p>An essay on whether the internet has changed who controls sports media, across podcasts, YouTube, TikTok and journalism.</p>
-            <a className="link" href="https://oliverharris6.wordpress.com/unit-12-specialist-study/">Read the essay <Arrow /></a>
-          </article>
-          <article className="card">
-            <p className="card-tag">Unit 6</p>
-            <h2 className="h3">Building a sports interview set</h2>
-            <p>I planned and dressed our own studio set, wrote the risk assessments, chose the kit and edited the multi-camera interviews: two Canon EOS R50s (one wide, one close-up), a Pixapro light, an LED light bar, two wash lights and clip-on microphones.</p>
-            <p className="links">
-              <a className="link" href={YT('RvHx7rrYhKI')}>Finley and Josh <Arrow /></a>
-              <a className="link" href={YT('mO9n21DGQfc')}>With Brody <Arrow /></a>
-              <a className="link" href={YT('wLvESyANWHs')}>Two-person interview <Arrow /></a>
-              <a className="link" href={YT('RhMIyLw_MRs')}>Eduarda <Arrow /></a>
-              <a className="link" href={YT('8jnANhyJQFI')}>Imad <Arrow /></a>
-            </p>
-          </article>
-          <article className="card">
-            <p className="card-tag">Unit 3 and 4</p>
-            <h2 className="h3">Heinz Flavour Tour pitch</h2>
-            <p>Working in a five-person creative agency, we pitched a UK tour bus campaign for Heinz with The Fellas podcast. I made the pitch presentation.</p>
-            <a className="link" href="https://www.canva.com/design/DAHCPrCYfr4/MUXgXCzDCj74b65YnE1EDw/view">View the presentation <Arrow /></a>
-          </article>
+          {projects.map(pr => (
+            <article className="card" key={pr.title}>
+              <p className="card-tag">{pr.unit}</p>
+              <h2 className="h3">{pr.title}</h2>
+              <p>{pr.text}</p>
+              {pr.quote && <blockquote className="card-quote"><p>{pr.quote}</p></blockquote>}
+              {pr.links.length > 0 && (
+                <ul className="project-links">
+                  {pr.links.map(([label, url]) => <li key={url}><a className="link" href={url}>{label} <Arrow /></a></li>)}
+                </ul>
+              )}
+              {pr.wp && <a className="card-more" href={pr.wp}>Full write-up on my coursework site <Arrow /></a>}
+            </article>
+          ))}
         </div>
       </section>
       <section className="section wrap quote-section" aria-label="From my essay">

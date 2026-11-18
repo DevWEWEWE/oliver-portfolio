@@ -35,19 +35,19 @@ export const episodes = [
 
 // Match highlights Oliver edited
 export const highlights = [
-  { id: '6TqCgRl2C2o', title: 'Barnsley vs Man United, EFL', thumb: 'hqdefault' },
+  { id: '6TqCgRl2C2o', title: 'Barnsley vs Man United U21, EFL Trophy', thumb: 'hqdefault' },
   { id: 'h3gAJZu_2rs', title: 'Staines vs Farnborough rugby' }
 ];
 
-// Interviews Oliver produced
+// Interviews Oliver produced (Chris Powell was a college project, not Locker Room Pulse)
 export const interviews = [
-  { id: 'KlJEv28Dh5E', title: 'Global interview' },
   { id: 'oGT1sZjNrgM', title: 'Chris Powell, part 1: playing career' },
   { id: 'duiCQ1NCDNY', title: 'Chris Powell, part 2: coaching career' }
 ];
 
 // Practice interviews from the college studio set (Unit 6). Lower picture and sound quality: filmed to practise.
 export const practiceInterviews = [
+  { id: 'KlJEv28Dh5E', title: 'Global interview (single camera)' },
   { id: 'RvHx7rrYhKI', title: 'Finley and Josh interview' },
   { id: 'wLvESyANWHs', title: 'Two-person interview' },
   { id: '8jnANhyJQFI', title: 'Imad interview' }

@@ -392,3 +392,10 @@ body{background:var(--ground)}
 .practice{margin-top:64px;padding-top:28px;border-top:1px solid var(--line)}
 .practice-title{font-family:var(--display);font-weight:800;font-variation-settings:"wdth" 108;text-transform:uppercase;font-size:clamp(1.3rem, 1rem + .8vw, 1.75rem)}
 .practice-note{color:var(--muted);max-width:60ch;margin:10px 0 28px}
+
+/* Projects: links under each project, then the coursework write-up */
+.project-links{display:flex;flex-wrap:wrap;gap:0 18px;margin:4px 0 6px}
+.card-quote{margin:0 0 10px;padding-left:14px;border-left:2px solid var(--cyan)}
+.card-quote p{color:var(--ink);font-weight:600;margin:0}
+.card-more{display:inline-flex;align-items:center;gap:6px;min-height:44px;font-size:13px;color:var(--accent-text);text-decoration:none}
+.card-more:hover{text-decoration:underline;text-underline-offset:4px}
