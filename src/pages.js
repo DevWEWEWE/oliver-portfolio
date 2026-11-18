@@ -4,7 +4,8 @@ export const SITE = 'https://oliverharrismedia.co.uk';
 
 export const pages = [
   { id: 'home', path: '/', label: 'Home', title: 'Oliver Harris – Sports Production Portfolio', description: 'Oliver Harris, sports podcast and radio producer. Head Podcast Producer at Locker Room Pulse and host and producer on Youth Choice radio.' },
-  { id: 'podcast', path: '/podcast/', label: 'Podcast', title: 'Locker Room Pulse podcast – Oliver Harris', description: 'Head Podcast Producer at Locker Room Pulse: over 20 weekly episodes, guest interviews, highlight edits and 12 Instagram shorts.' },
+  { id: 'podcast', path: '/podcast/', label: 'Podcast', title: 'Locker Room Pulse podcast – Oliver Harris', description: 'Head Podcast Producer at Locker Room Pulse: watch every episode, from Mark Chapman and Alfie Essex to the World Cup specials, plus 12 Instagram shorts.' },
+  { id: 'video', path: '/video/', label: 'Video', title: 'Highlights and interviews – Oliver Harris', description: 'Match highlights from Barnsley vs Man United and Staines vs Farnborough rugby, and interviews including Chris Powell, edited and produced by Oliver Harris.' },
   { id: 'radio', path: '/radio/', label: 'Radio', title: 'Youth Choice radio – Oliver Harris', description: 'Hosting and producing shows on Youth Choice college radio since November 2025, with running orders built in Zetta.' },
   { id: 'projects', path: '/projects/', label: 'Projects', title: 'College projects – Oliver Harris', description: 'Creative Media Production projects: a Sutton United FA Cup documentary, an essay on sports media, a studio interview set and a Heinz pitch.' },
   { id: 'about', path: '/about/', label: 'About', title: 'About Oliver Harris – skills and experience', description: 'About Oliver Harris: Creative Media Production student, skills and kit, and work experience at Chessington Garden Centre.' },

@@ -6,6 +6,7 @@ import { linkedinPosts, LINKEDIN_PROFILE } from './linkedin.js';
 import { instagramReels, INSTAGRAM_PROFILE } from './instagram.js';
 import { pages, pageFor } from './pages.js';
 import Backdrop from './Backdrop.jsx';
+import { episodes, highlights, interviews, CHANNEL } from './youtube.js';
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
@@ -26,25 +27,17 @@ const metrics = [
 const work = [
   { id: 'oGT1sZjNrgM', tag: '01 / podcast', title: 'Chris Powell interview', href: YT('oGT1sZjNrgM') },
   { id: 'RvHx7rrYhKI', tag: '02 / studio', title: 'Sports interview set', href: href('projects') },
-  { id: 'h3gAJZu_2rs', tag: '03 / highlights', title: 'Staines vs Farnborough', href: YT('h3gAJZu_2rs'), wide: true }
+  { id: 'h3gAJZu_2rs', tag: '03 / highlights', title: 'Staines vs Farnborough', href: href('video'), wide: true }
 ];
 
 // The front page recap: one line per area, each opening its own page
 const recap = [
   ['podcast', 'Locker Room Pulse', 'Head Podcast Producer and co-host since November 2025. Over 20 weekly episodes, guest interviews including Chris Powell, highlight edits and 12 Instagram shorts.'],
+  ['video', 'Highlights and interviews', 'Match highlights from Barnsley vs Man United and Staines vs Farnborough rugby, and interviews including Chris Powell on his playing and coaching career.'],
   ['radio', 'Youth Choice radio', 'Hosting shows since November 2025 and producing a daily show, building each running order in Zetta and editing the segues.'],
   ['projects', 'College projects', 'A documentary on Sutton United’s FA Cup history, an essay on who controls sports media, a studio interview set I built and a Heinz campaign pitch.'],
   ['about', 'Experience and skills', 'Retail Assistant at Chessington Garden Centre since April 2025 and Employee of the Year 2025. Premiere Pro, Audition, Zetta and studio cameras.'],
   ['posts', 'On LinkedIn', 'Posts about producing the Mark Chapman and Alfie Essex episodes and presenting our Heinz project at The Shard.']
-];
-
-// Titles from YouTube
-const media = [
-  ['oGT1sZjNrgM', 'Chris Powell, part 1: playing career', 'Podcast episode'],
-  ['duiCQ1NCDNY', 'Chris Powell, part 2: coaching career', 'Podcast episode'],
-  ['KlJEv28Dh5E', 'Global interview', 'Interview'],
-  ['6TqCgRl2C2o', 'Barnsley vs Man United, EFL', 'Highlights'],
-  ['h3gAJZu_2rs', 'Staines vs Farnborough rugby', 'Highlights']
 ];
 
 const duties = [
@@ -123,6 +116,30 @@ function Contact() {
         </nav>
       </footer>
     </section>
+  );
+}
+
+
+// A YouTube video that plays in place: the thumbnail and a play button until pressed, then YouTube's
+// privacy-enhanced player (no tracking cookies before play). Keeps the page fast with many videos.
+function YouTubePlayer({ id, title, thumbSize = 'maxresdefault', big = false }) {
+  const [playing, setPlaying] = useState(false);
+  return (
+    <div className={`yt${big ? ' yt-big' : ''}`}>
+      {playing ? (
+        <iframe
+          src={`https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0`}
+          title={title}
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowFullScreen
+        />
+      ) : (
+        <button type="button" className="yt-btn" onClick={() => setPlaying(true)} aria-label={`Play video: ${title}`}>
+          <img src={`https://i.ytimg.com/vi/${id}/${thumbSize}.jpg`} alt="" loading={big ? 'eager' : 'lazy'} decoding="async" width="1280" height="720" />
+          <span className="yt-play" aria-hidden="true"><svg viewBox="0 0 24 24" width="26" height="26"><path d="M8 5v14l11-7z" fill="currentColor" /></svg></span>
+        </button>
+      )}
+    </div>
   );
 }
 
@@ -214,21 +231,29 @@ function Podcast({ reduced }) {
         </div>
       </section>
 
-      <section className="section wrap" aria-labelledby="watch-title">
+      <section className="section wrap" id="episodes" aria-labelledby="episodes-title">
         <div className="split">
-          <h2 id="watch-title">Watch and<br />listen.</h2>
+          <h2 id="episodes-title">Watch the<br />episodes.</h2>
           <div className="split-side">
-            <ul className="list">
-              {media.map(([id, title, kind]) => (
-                <li key={id}><a href={YT(id)}><span className="list-title">{title}</span><span className="list-kind">{kind}</span><Arrow /></a></li>
-              ))}
-            </ul>
+            <p>Every episode and extra from the Locker Room Pulse YouTube channel, newest first. Press play to watch here on the page.</p>
             <div className="actions">
-              <a className="pill" href="https://www.youtube.com/@LockerRoomPulse">Watch on YouTube <Arrow /></a>
+              <a className="pill" href={CHANNEL}>Subscribe on YouTube <Arrow /></a>
               <a className="pill pill-ghost" href={INSTAGRAM_PROFILE}>Follow on Instagram</a>
             </div>
           </div>
         </div>
+        <ul className="videos">
+          {episodes.map(v => (
+            <li key={v.id}>
+              <YouTubePlayer id={v.id} title={v.title} />
+              <p className="video-meta">
+                <span>{v.ep ? `Episode ${v.ep}` : v.kind ?? 'Episode'}</span>
+                <span>{v.mins >= 60 ? `${Math.floor(v.mins / 60)} hr ${v.mins % 60} min` : `${v.mins} min`}</span>
+              </p>
+              <h3 className="video-title">{v.title}</h3>
+            </li>
+          ))}
+        </ul>
 
         <div className="shorts">
           <div className="shorts-head">
@@ -286,6 +311,44 @@ function Radio() {
             </ol>
           </div>
         </div>
+      </section>
+    </>
+  );
+}
+
+function Video() {
+  return (
+    <>
+      <PageHead eyebrow="Editing and production" title="Highlights and interviews.">
+        <p>Match highlight packages I edited and interviews I produced. Press play to watch here on the page.</p>
+      </PageHead>
+      <section className="section section-tight wrap" id="highlights" aria-labelledby="highlights-title">
+        <div className="split split-stack">
+          <h2 id="highlights-title">Highlights.</h2>
+          <p className="split-side">Highlight packages from Barnsley vs Man United in the EFL and Staines vs Farnborough rugby.</p>
+        </div>
+        <ul className="videos videos-2">
+          {highlights.map(v => (
+            <li key={v.id}>
+              <YouTubePlayer id={v.id} title={v.title} thumbSize={v.thumb} big />
+              <h3 className="video-title">{v.title}</h3>
+            </li>
+          ))}
+        </ul>
+      </section>
+      <section className="section wrap" id="interviews" aria-labelledby="interviews-title">
+        <div className="split split-stack">
+          <h2 id="interviews-title">Interviews.</h2>
+          <p className="split-side">The Global interview, and Chris Powell talking through his playing career and his coaching career.</p>
+        </div>
+        <ul className="videos videos-feature">
+          {interviews.map((v, i) => (
+            <li key={v.id}>
+              <YouTubePlayer id={v.id} title={v.title} big={i === 0} />
+              <h3 className="video-title">{v.title}</h3>
+            </li>
+          ))}
+        </ul>
       </section>
     </>
   );
@@ -428,7 +491,7 @@ function Posts() {
   );
 }
 
-const views = { home: Home, podcast: Podcast, radio: Radio, projects: Projects, about: About, posts: Posts };
+const views = { home: Home, podcast: Podcast, video: Video, radio: Radio, projects: Projects, about: About, posts: Posts };
 
 /* ---------- Shell ---------- */
 
