@@ -137,9 +137,44 @@ function YouTubePlayer({ id, title, thumbSize = 'maxresdefault', big = false }) 
   );
 }
 
+/* Showreel: plays muted on arrival (unless reduced motion); the button restarts it with sound and controls */
+function Showreel({ reduced }) {
+  const ref = useRef(null);
+  const [sound, setSound] = useState(false);
+  useEffect(() => {
+    const v = ref.current;
+    v.muted = true; // React does not render the muted attribute on the server, and browsers only autoplay muted video
+    if (!reduced) v.play().catch(() => {});
+    else v.pause();
+  }, [reduced]);
+  const withSound = () => {
+    const v = ref.current;
+    v.muted = false; v.loop = false; v.currentTime = 0;
+    v.play().catch(() => {});
+    setSound(true);
+  };
+  return (
+    <figure className="reel">
+      <div className="reel-frame">
+        <video ref={ref} poster="/video/showreel-poster.jpg" loop playsInline preload="metadata" controls={sound} aria-label="Oliver Harris showreel 2026">
+          <source src="/video/showreel-720.mp4" type="video/mp4" media="(max-width: 900px)" />
+          <source src="/video/showreel-1080.mp4" type="video/mp4" />
+        </video>
+        {!sound && (
+          <button type="button" className="reel-btn" onClick={withSound}>
+            <span className="reel-icon" aria-hidden="true"><svg width="14" height="16" viewBox="0 0 14 16"><path d="M0 0 L14 8 L0 16 Z" fill="currentColor" /></svg></span>
+            Watch with sound
+          </button>
+        )}
+      </div>
+      <figcaption>Showreel 2026 · 53 seconds</figcaption>
+    </figure>
+  );
+}
+
 /* ---------- Pages ---------- */
 
-function Home() {
+function Home({ reduced }) {
   return (
     <>
       <section className="hero" aria-labelledby="hero-title">
@@ -147,11 +182,14 @@ function Home() {
         <img className="hero-photo" src="/images/hero.jpg" alt="" width="1920" height="1080" fetchPriority="high" />
         <HeroArt />
         <div className="wrap hero-inner">
+          <div className="hero-text">
           <p className="eyebrow">Sports podcast and radio producer · Epsom, Surrey</p>
           <h1 id="hero-title">Oliver Harris</h1>
           <p className="hero-intro">I produce, edit and present sports content. I run production for the Locker Room Pulse podcast and host and produce shows on Youth Choice radio. Open to apprenticeships in broadcast production and live events.</p>
           <p className="hero-guests">I've produced episodes with Mark Chapman, Alfie Essex, Max Pitman and Adam Cash.</p>
           <a className="btn" href={href('podcast')}>See my work</a>
+          </div>
+          <Showreel reduced={reduced} />
         </div>
       </section>
 
