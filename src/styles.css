@@ -387,3 +387,8 @@ body{background:var(--ground)}
 /* One long word as the heading: put the line under it instead of beside it */
 .split-stack{grid-template-columns:1fr;gap:16px}
 .split-stack .split-side{padding-top:0;max-width:56ch}
+
+/* Practice interviews: a quieter group under the main interviews, with its quality note */
+.practice{margin-top:64px;padding-top:28px;border-top:1px solid var(--line)}
+.practice-title{font-family:var(--display);font-weight:800;font-variation-settings:"wdth" 108;text-transform:uppercase;font-size:clamp(1.3rem, 1rem + .8vw, 1.75rem)}
+.practice-note{color:var(--muted);max-width:60ch;margin:10px 0 28px}

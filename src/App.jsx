@@ -6,7 +6,7 @@ import { linkedinPosts, LINKEDIN_PROFILE } from './linkedin.js';
 import { instagramReels, INSTAGRAM_PROFILE } from './instagram.js';
 import { pages, pageFor } from './pages.js';
 import Backdrop from './Backdrop.jsx';
-import { episodes, highlights, interviews, CHANNEL } from './youtube.js';
+import { episodes, highlights, interviews, practiceInterviews, CHANNEL } from './youtube.js';
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
@@ -339,7 +339,7 @@ function Video() {
       <section className="section wrap" id="interviews" aria-labelledby="interviews-title">
         <div className="split split-stack">
           <h2 id="interviews-title">Interviews.</h2>
-          <p className="split-side">The Global interview, and Chris Powell talking through his playing career and his coaching career.</p>
+          <p className="split-side">The Global interview, Chris Powell talking through his playing career and his coaching career, and practice interviews from our studio set.</p>
         </div>
         <ul className="videos videos-feature">
           {interviews.map((v, i) => (
@@ -349,6 +349,20 @@ function Video() {
             </li>
           ))}
         </ul>
+
+        <div className="practice">
+          <h3 className="practice-title">Practice interviews</h3>
+          <p className="practice-note">Filmed on our college studio set while I practised setting up and running a multi-camera interview, so the picture and sound quality is lower than my finished work.</p>
+          <ul className="videos">
+            {practiceInterviews.map(v => (
+              <li key={v.id}>
+                <YouTubePlayer id={v.id} title={v.title} />
+                <p className="video-meta"><span>Practice</span><span>Studio set</span></p>
+                <h4 className="video-title">{v.title}</h4>
+              </li>
+            ))}
+          </ul>
+        </div>
       </section>
     </>
   );

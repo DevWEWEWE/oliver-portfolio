@@ -45,3 +45,10 @@ export const interviews = [
   { id: 'oGT1sZjNrgM', title: 'Chris Powell, part 1: playing career' },
   { id: 'duiCQ1NCDNY', title: 'Chris Powell, part 2: coaching career' }
 ];
+
+// Practice interviews from the college studio set (Unit 6). Lower picture and sound quality: filmed to practise.
+export const practiceInterviews = [
+  { id: 'RvHx7rrYhKI', title: 'Finley and Josh interview' },
+  { id: 'wLvESyANWHs', title: 'Two-person interview' },
+  { id: '8jnANhyJQFI', title: 'Imad interview' }
+];
