@@ -73,12 +73,26 @@ img{display:block;max-width:100%}
 .progress{position:absolute;left:0;right:0;bottom:-1px;height:2px;background:var(--accent);transform:scaleX(0);transform-origin:left;pointer-events:none}
 .menu-btn{display:none;min-height:44px;padding:0 4px;border:0;background:none;font:inherit;font-size:14px;color:var(--ink);text-decoration:underline;text-underline-offset:4px;cursor:pointer}
 
-/* ---------- Home hero: photo of Oliver at work, pitch lines over it ---------- */
+/* ---------- Home hero: photo of Oliver at work, camera and mic drawing over it ---------- */
 .hero{position:relative;isolation:isolate;overflow:hidden;min-height:min(86vh, 820px);display:flex;align-items:flex-end;background:#1B1B1D;color:#F3F1EC}
 .hero-photo{position:absolute;inset:0;z-index:-2;width:100%;height:100%;object-fit:cover}
 .hero::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg, rgba(10,10,11,.86) 0%, rgba(10,10,11,.6) 50%, rgba(10,10,11,.15) 100%)}
-.pitch-lines{position:absolute;inset:0;z-index:-1;width:100%;height:100%;pointer-events:none}
-.pitch-lines path{fill:none;stroke:rgba(255,255,255,.16);stroke-width:1;vector-effect:non-scaling-stroke}
+.hero-art{position:absolute;inset:0;z-index:-1;width:100%;height:100%;pointer-events:none}
+.hero-art path{fill:none;stroke-width:1;vector-effect:non-scaling-stroke;stroke-linecap:round;stroke-linejoin:round}
+.hero-art .art{stroke:rgba(243,241,236,.3)}
+.hero-art .sig{stroke:rgba(108,168,255,.22)}
+.hero-art .pulse{stroke:#6CA8FF;stroke-width:2;opacity:0}
+.hero-art .tally{fill:#1F6FEB}
+@media (prefers-reduced-motion:no-preference){
+  /* Drawing etches in once, a beat apart per line */
+  .hero-art .art{stroke-dasharray:1 1;stroke-dashoffset:1;animation:etch 1.2s cubic-bezier(.65,0,.35,1) forwards;animation-delay:calc(.2s + var(--i) * .06s)}
+  /* A bright blue pulse travels each signal line, then rests */
+  .hero-art .pulse{stroke-dasharray:.14 1.14;stroke-dashoffset:.14;animation:pulse 6.5s linear infinite;animation-delay:calc(1.6s + var(--d))}
+  .hero-art .tally{animation:tally 2.4s ease-in-out infinite alternate}
+}
+@keyframes etch{to{stroke-dashoffset:0}}
+@keyframes pulse{0%{stroke-dashoffset:.14;opacity:0}4%{opacity:1}36%{opacity:1}40%{stroke-dashoffset:-1;opacity:0}100%{stroke-dashoffset:-1;opacity:0}}
+@keyframes tally{from{opacity:.45}to{opacity:1}}
 .hero-inner{position:relative;padding:clamp(96px, 16vh, 160px) 0 clamp(48px, 8vh, 88px)}
 .hero .eyebrow{color:rgba(243,241,236,.78)}
 .hero h1{font-size:var(--t-h1);line-height:.95;margin:0 0 24px -.03em}
@@ -275,6 +289,7 @@ iframe:focus-visible{outline:2px solid var(--accent-text);outline-offset:3px}
   .hero{min-height:auto}
   .hero::after{background:linear-gradient(180deg, rgba(10,10,11,.35) 0%, rgba(10,10,11,.88) 55%)}
   .hero h1{font-size:18vw}
+  .hero-art{opacity:.55}
   .page-head h1{font-size:16vw}
   .brand{font-size:18px}
   .nav-end .btn-sm{display:none}

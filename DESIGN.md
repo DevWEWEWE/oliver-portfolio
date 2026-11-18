@@ -11,7 +11,7 @@ option A of two (A: studio near-black, B: off-white paper).
 - Headings: Bricolage Grotesque 600 (Google Fonts), sentence case. Body: Helvetica Neue / Arial.
 - Flat: no glows, no blur, no glass, no gradients except the photo scrim. Buttons are 4px radius blocks; cards 6px.
 - Home hero: full-width photo of Oliver at work (`public/images/hero.jpg`, placeholder until he adds it), a dark
-  scrim from the left, and the camera-plan pitch lines (`src/Backdrop.jsx`) as a still, faint overlay.
+  scrim from the left, and a line drawing of a broadcast camera and desk mic (`src/Backdrop.jsx`) that draws in on load, with blue pulses running along signal lines through it. Reduced motion: still drawing.
 - No row numbers. Arrows only on the Selected work cards and the external contact links.
 
 The blue b3xgraphics, Bracken House and running-order designs below are earlier versions.

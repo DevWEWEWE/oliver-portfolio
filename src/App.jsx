@@ -5,7 +5,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { linkedinPosts, LINKEDIN_PROFILE } from './linkedin.js';
 import { instagramReels, INSTAGRAM_PROFILE } from './instagram.js';
 import { pages, pageFor } from './pages.js';
-import PitchLines from './Backdrop.jsx';
+import HeroArt from './Backdrop.jsx';
 import { projects } from './projects.js';
 import { episodes, highlights, interviews, practiceInterviews, CHANNEL } from './youtube.js';
 
@@ -145,7 +145,7 @@ function Home() {
       <section className="hero" aria-labelledby="hero-title">
         {/* Photo of Oliver at work: drop the real file in public/images/hero.jpg (served as /images/hero.jpg) */}
         <img className="hero-photo" src="/images/hero.jpg" alt="" width="1920" height="1080" fetchPriority="high" />
-        <PitchLines />
+        <HeroArt />
         <div className="wrap hero-inner">
           <p className="eyebrow">Sports podcast and radio producer · Epsom, Surrey</p>
           <h1 id="hero-title">Oliver Harris</h1>
