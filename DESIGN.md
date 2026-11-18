@@ -1,13 +1,13 @@
 # Design: Oliver Harris portfolio
 
-## Current style (Nov 2026): broadcast studio, option A
+## Current style (Nov 2026): broadcast studio, option A in studio blue
 
 Oliver asked for a site that looks like a real sports podcast and radio producer's, not an AI template. He picked
 option A of two (A: studio near-black, B: off-white paper).
 
 - Ground `#0F0F10`, raised surfaces and bands `#18181A`, text `#F3F1EC`, muted `#A6A39C`, hairlines at 12%.
-- One "on air" red: `#D42A22` for buttons, the award, the play buttons and the progress line (white text on it),
-  hover `#B8221B`, red text on dark `#FF6A5E`. The current page in the menu has a small red on-air dot.
+- One studio blue (Oliver chose it over the red, which read as orange): `#1F6FEB` for buttons, the award, the play buttons and the progress line (white text on it),
+  hover `#1959C2`, blue text on dark `#6CA8FF`. The current page in the menu has a small blue dot.
 - Headings: Bricolage Grotesque 600 (Google Fonts), sentence case. Body: Helvetica Neue / Arial.
 - Flat: no glows, no blur, no glass, no gradients except the photo scrim. Buttons are 4px radius blocks; cards 6px.
 - Home hero: full-width photo of Oliver at work (`public/images/hero.jpg`, placeholder until he adds it), a dark

@@ -1,4 +1,4 @@
-/* Broadcast palette: studio near-black, flat surfaces, hairlines, one "on air" red accent */
+/* Broadcast palette: studio near-black, flat surfaces, hairlines, one studio blue accent */
 :root{
   --ground:#0F0F10;
   --raised:#18181A;
@@ -10,10 +10,10 @@
   --band-ink:#F3F1EC;
   --band-muted:#A6A39C;
   --band-line:rgba(243,241,236,.12);
-  --accent:#D42A22;
-  --accent-hover:#B8221B;
+  --accent:#1F6FEB;
+  --accent-hover:#1959C2;
   --accent-ink:#FFFFFF;
-  --accent-text:#FF6A5E;
+  --accent-text:#6CA8FF;
 
   --font:"Helvetica Neue", Helvetica, Arial, sans-serif;
   --display:"Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif;
@@ -42,7 +42,7 @@ img{display:block;max-width:100%}
 
 .wrap{width:min(var(--wrap), 100% - 2 * var(--pad));margin-inline:auto}
 .eyebrow{font-size:14px;color:var(--muted);margin:0 0 16px}
-.arrow{display:inline-block}
+.arrow{display:inline}
 
 /* Display type: a grotesque with some character, sentence case, weight from size not from 900 */
 .hero h1,.page-head h1,.split h2,.band h2,.recap-title,.h3,.job-title,.award-n,.award-title,.menu-link,.tile-title,.practice-title,.quote{font-family:var(--display);font-weight:600;letter-spacing:-.02em;font-optical-sizing:auto}
@@ -66,7 +66,7 @@ img{display:block;max-width:100%}
 .nav-links{display:flex;gap:4px}
 .nav-links a{display:flex;align-items:center;gap:8px;min-height:44px;padding:0 8px;font-size:14px;text-decoration:none;color:var(--muted);transition:color .15s var(--ease)}
 .nav-links a:hover{color:var(--ink)}
-/* Current page: on-air light */
+/* Current page: a small blue dot */
 .nav-links a[aria-current="page"]{color:var(--ink)}
 .nav-links a[aria-current="page"]::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--accent)}
 .nav-end{display:flex;align-items:center;gap:12px}
@@ -125,10 +125,8 @@ img{display:block;max-width:100%}
 .tile:hover img,.tile:focus-visible img{scale:1.03}
 .tile::after{content:"";position:absolute;inset:auto 0 0;height:60%;background:linear-gradient(rgba(10,10,11,0), rgba(10,10,11,.9) 70%)}
 .tile-tag{position:absolute;top:20px;left:20px;z-index:1;background:#F3F1EC;color:#151515;font-size:13px;padding:4px 8px;border-radius:2px}
-.tile-title .arrow{white-space:nowrap}
 .tile-title{position:absolute;left:24px;right:24px;bottom:20px;z-index:1;font-size:clamp(1.4rem, 1rem + 1vw, 1.9rem);line-height:1.1}
-.tile:hover .tile-title .arrow{white-space:nowrap}
-.tile-title{color:#FF8A80}
+.tile:hover .tile-title,.tile:focus-visible .tile-title{color:#6CA8FF}
 
 /* Bands: Locker Room Pulse duties and the contact finale */
 .band{background:var(--band);color:var(--band-ink);padding:clamp(72px,11vh,120px) 0;margin-top:clamp(80px, 12vh, 136px)}
@@ -236,7 +234,7 @@ details[open] .plus::after{rotate:0deg}
 .contact-links{margin-top:32px;border-top:1px solid var(--band-line)}
 .contact-links a{display:grid;grid-template-columns:7rem 1fr auto;gap:12px;align-items:center;min-height:56px;border-bottom:1px solid var(--band-line);text-decoration:none;color:var(--band-ink);font-weight:600;transition:color .15s var(--ease)}
 .contact-links span:first-child{font-weight:400;font-size:13px;color:var(--band-muted)}
-.contact-links a:hover{color:#FF8A80}
+.contact-links a:hover{color:#6CA8FF}
 .band-end .split-side{color:var(--band-ink)}
 .foot{display:flex;justify-content:space-between;gap:16px;margin-top:72px;font-size:13px;color:var(--band-muted)}
 .foot a{min-height:44px;display:inline-flex;align-items:center}

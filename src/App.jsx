@@ -182,7 +182,7 @@ function Home() {
             <a key={w.id} className={`tile${w.wide ? ' tile-wide' : ''}`} href={w.href}>
               <img src={w.img ?? thumb(w.id)} alt="" loading="lazy" decoding="async" width="1280" height="720" />
               <span className="tile-tag">{w.tag}</span>
-              <span className="tile-title">{w.title} <Arrow /></span>
+              <span className="tile-title">{w.title}{'\u00a0'}<Arrow /></span>
             </a>
           ))}
         </div>
